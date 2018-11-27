@@ -23,6 +23,13 @@ class Project extends CI_Controller {
 		$this->load->view('project_view',$data);
 	}
 
+	public function edit($id)
+	{	
+		$this->load->model('PagesModel');
+		$data['project'] = $this->PagesModel->viewRecord('projects','ProjectID',$id);
+		$this->load->view('project_edit',$data);
+	}
+
 	public function save()
 	{
 		$this->form_validation->set_rules('ProjectName','Project Name','required');
