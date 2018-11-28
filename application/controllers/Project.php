@@ -5,8 +5,10 @@ class Project extends CI_Controller {
 
 	public function new()
 	{
+		$this->load->model('PagesModel');
 		//$data['Field'] = $this->PagesModel->getList('Fields');
-		$this->load->view('project_new');
+		$data['Categories'] = $this->PagesModel->getCategory();
+		$this->load->view('project_new',$data);
 	}
 
 	public function list()

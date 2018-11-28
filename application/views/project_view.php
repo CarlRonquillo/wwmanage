@@ -62,7 +62,9 @@
 		      <li class="list-inline-item"><b><abbr title="Requested Fund" class="initialism">RF </abbr></b><?php echo "$".$project->RequestedProjectFunds ?></li>
 		      <li class="list-inline-item"><b><abbr title="Individual Cost Per Day" class="initialism">ICD </abbr></b><?php echo "$".$project->IndividualCostPerDay ?></li>
 		    </ul>
-		    <p class="card-text"><i>Team Opportunity | Youth Teams Welcome</i></p>
+		    <?php if($project->YouthTeamsAccepted == '1'){ ?>
+		    	<p class="card-text"><i>Youth Teams Welcome</i></p>
+			<?php } ?>
 		    <br>
 
 		    <h6 class="font-weight-bold indigo-text ">Vision</h6>

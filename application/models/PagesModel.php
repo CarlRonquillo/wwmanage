@@ -11,6 +11,15 @@
 			}
 		}
 
+		public function getCategory()
+		{
+			$query = $this->db->get('category');
+			if($query->num_rows() > 0)
+			{
+				return $query->result();
+			}
+		}
+
 		public function getAllRecords($record_id,$tableName,$PKfield)
 		{
 			$query = $this->db->get_where($tableName,array($PKfield=> $record_id));

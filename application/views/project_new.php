@@ -139,11 +139,13 @@
 				</div>
 
 				<br><h4 class="text-warning">Project Categories <i class="text-warning">*</i></h4><hr>
-
-				<div class="custom-control custom-checkbox">
-					<?php echo form_checkbox(['name' => 'compassion','value' => '1','maxlength' => 1, 'checked' => FALSE, 'id' => 'compassion', 'class' => 'custom-control-input']); ?>
-						<label for="compassion" class="custom-control-label">Compassionate Ministries</label>
-				</div>
+				
+				<?php foreach($Categories as $cat) { ?>
+						<div class='custom-control custom-checkbox'>
+							<?php echo form_checkbox(['name' => '','value' => $cat->CategoryID,'maxlength' => 1, 'checked' => FALSE, 'id' => $cat->Category, 'class' => 'custom-control-input']); ?>
+							<label for="<?php echo $cat->Category; ?>" class="custom-control-label"><?php echo $cat->Category; ?></label>
+						</div>
+					<?php } ?>
 
 				<br>
 				<div class="form-group">
