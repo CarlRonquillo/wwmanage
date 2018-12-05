@@ -74,7 +74,7 @@
 		    <br>
 
 		    <?php echo anchor("","<i class='fa fa-phone mr-1'></i>Contact Coordinator",["class"=>"btn btn-primary btn-sm"]); ?>
-		    <?php echo anchor("Project/edit/{$project->ProjectID}","<i class='fa fa-pencil mr-1'></i>Edit",["class"=>"btn btn-light-green btn-sm"]); ?>
+		    <?php echo anchor("Project/edit/{$project->ProjectID}","<i class='fa fa-pencil mr-1'></i>Edit",["class"=>"btn btn-warning btn-sm"]); ?>
 		    <?php echo anchor("","<i class='fa fa-close mr-1'></i>Delete",["class"=>"btn btn-danger btn-sm"]); ?>
 
 		  </div>

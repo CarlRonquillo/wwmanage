@@ -43,6 +43,12 @@
 			return $this->db->insert($tableName,$data);
 		}
 
+		public function update($data,$tableName,$where)
+		{
+			$this->db->where($where);
+			return $this->db->update($tableName, $data);
+		}
+
 	}
 
 ?>

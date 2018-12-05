@@ -98,7 +98,7 @@
 					<div class="form-group col-lg-6">
 						<label>Country<i class="text-warning">*</i></label>
 						<?php $Country = array('');
-							echo form_dropdown(['id' => 'Country','name' => 'Country', 'class' => 'browser-default custom-select col-lg-6','autocomplete' => 'off'],$Country); ?>
+							echo form_dropdown(['id' => 'Country','name' => 'FKCountryID', 'class' => 'browser-default custom-select col-lg-6','autocomplete' => 'off'],$Country); ?>
 						<span><?php echo form_error('Country') ?></span>
 					</div>
 					<div class="form-group col-lg-6">
@@ -119,7 +119,7 @@
                     	<span><?php echo form_error('City') ?></span>
 					</div>
 					<div class="custom-control custom-checkbox col-lg-5">
-						<?php echo form_checkbox(['name' => 'YouthAccepted','value' => '1','maxlength' => 1, 'checked' => FALSE, 'id' => 'YouthAccepted', 'class' => 'custom-control-input']); ?>
+						<?php echo form_checkbox(['name' => 'YouthTeamsAccepted','value' => '1','maxlength' => 1, 'checked' => FALSE, 'id' => 'YouthAccepted', 'class' => 'custom-control-input']); ?>
 						<label for="YouthAccepted" class="custom-control-label">Youth Teams Accepted?</label>
 						<span> <?php echo form_error('YouthAccepted') ?> </span>
 					</div>
@@ -142,11 +142,11 @@
 				
 				<?php foreach($Categories as $cat) { ?>
 						<div class='custom-control custom-checkbox'>
-							<?php echo form_checkbox(['name' => '','value' => $cat->CategoryID,'maxlength' => 1, 'checked' => FALSE, 'id' => $cat->Category, 'class' => 'custom-control-input']); ?>
+							<?php echo form_checkbox(['name' => '','value' => $cat->CategoryID, 'checked' => FALSE, 'id' => $cat->Category, 'class' => 'custom-control-input','name' => 'FKCategoryID[]']); ?>
 							<label for="<?php echo $cat->Category; ?>" class="custom-control-label"><?php echo $cat->Category; ?></label>
 						</div>
 					<?php } ?>
-
+					<span><?php echo form_error('FKCategoryID') ?></span>
 				<br>
 				<div class="form-group">
 					<?php echo form_submit(['value' => 'Submit','class' => 'btn blue-gradient']); ?>
