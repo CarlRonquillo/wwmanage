@@ -2,18 +2,6 @@
 
 <main>
     <div class="container-fluid ">
-    	<?php 
-			if($error = $this->session->flashdata('response')):
-			{						
-			?>
-			<div class="alert alert-success">
-				<span class ="glyphicon glyphicon-info-sign"></span>
-				<?php echo $error; ?>
-			</div>
-			<?php 
-			}
-				endif
-			?>
     	<!-- Card -->
 		<div class="card card-cascade wider reverse">
 
@@ -63,6 +51,18 @@
 
 		  <!-- Card content -->
 		  <div class="card-body card-body-cascade text-center">
+		  	<?php 
+			if($error = $this->session->flashdata('response')):
+			{						
+			?>
+			<div class="alert alert-success">
+				<span class ="glyphicon glyphicon-info-sign"></span>
+				<?php echo $error; ?>
+			</div>
+			<?php 
+			}
+				endif
+			?>
 		    <h3 class="card-title"><strong><?php echo $project->ProjectName ?></strong></h3>
 		    <h6 class="font-weight-bold text-warning">Compassionate Ministries • Construction • Evangelism</h6>
 		    <ul class="list-unstyled list-inline font-small">

@@ -94,8 +94,7 @@ class Project extends CI_Controller {
             }
         }
 
-        $data['project'] = $this->PagesModel->viewRecord('projects','ProjectID',$id);
-		$this->load->view('project_view',$data);
+        return redirect("Project/view/{$id}");
 	}
 
 	public function save()
