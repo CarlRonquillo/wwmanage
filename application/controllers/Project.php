@@ -55,7 +55,7 @@ class Project extends CI_Controller {
         {
         	$data = $this->input->post();
 	        unset($data['FKCategoryID']);
-	        $data['ModifiedDate'] = getdate();
+	        $data['ModifiedDate'] = date('Y-m-d H:i:s');
 
 	        $condition = array('ProjectID' => $id);
 
