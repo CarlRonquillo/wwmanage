@@ -33,6 +33,26 @@ class Project extends CI_Controller {
 		$this->load->view('project_edit',$data);
 	}
 
+	public function delete($id)
+	{	
+		$this->load->model('PagesModel');
+		$data['Deleted'] = '1';
+		$data['DateDeleted'] = date('Y-m-d H:i:s');
+		$condition = array('ProjectID' => $id);
+		
+		if($this->PagesModel->update($data,'projects',$condition))
+        {
+            $this->session->set_flashdata('response','Project successfully deleted.');
+        }
+        else
+        {
+			$this->session->set_flashdata('response','Project was not deleted.');
+        }
+
+		$data['projects'] = $this->PagesModel->getRecords('projects');
+		$this->load->view('project_list',$data);
+	}
+
 	public function update($id)
 	{	
 		$this->form_validation->set_rules('ProjectName','Project Name','required');

@@ -4,7 +4,7 @@
 
 		public function getRecords($tableName)
 		{
-			$query = $this->db->get($tableName);
+			$query = $this->db->get_where($tableName,array('Deleted' => '0'));
 			if($query->num_rows() > 0)
 			{
 				return $query->result();

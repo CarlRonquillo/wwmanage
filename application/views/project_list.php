@@ -5,6 +5,18 @@
     	<div class="card">
     		<h4 class="card-header blue-gradient white-text text-center py-3">My Project</h4>
   			<div class="card-body">
+  				<?php 
+					if($error = $this->session->flashdata('response')):
+					{						
+				?>
+					<div class="alert alert-success">
+						<span class ="glyphicon glyphicon-info-sign"></span>
+						<?php echo $error; ?>
+					</div>
+				<?php 
+					}
+					endif
+				?>
 	  			<div class="table-responsive text-wrap table-hover table-striped">
 	  			<div class="card-group">
 				  <table class="table">
