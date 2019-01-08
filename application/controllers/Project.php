@@ -13,8 +13,8 @@ class Project extends CI_Controller {
 
 	public function list()
 	{	
-		$this->load->model('PagesModel');
-		$data['projects'] = $this->PagesModel->getRecords('projects');
+		$this->load->model('ProjectModel');
+		$data['projects'] = $this->ProjectModel->getProjectsByUser($this->session->userdata('PersonID'));
 		$this->load->view('project_list',$data);
 	}
 

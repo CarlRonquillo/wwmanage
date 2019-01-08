@@ -5,6 +5,13 @@ class Pages extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('dashboard');
+                if(!empty($this->session->userdata('Username')))
+                {
+	               $this->load->view('dashboard');
+                }
+                else
+                {
+                        $this->login();
+                }
 	}
 }

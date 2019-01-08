@@ -187,11 +187,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user"></i> <span class="clearfix d-none d-sm-inline-block">Profile</span></a>
+                        <i class="fa fa-user"></i> <span class="clearfix d-none d-sm-inline-block"><?php echo $this->session->userdata('GivenName').' '.$this->session->userdata('FamilyName'); ?></span></a>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">Log Out</a>
                         <a class="dropdown-item" href="#">My account</a>
+                        <?php
+                            if($this->session->userdata('Username') == 'admin')
+                            {
+                                echo anchor("Users/New","Add User",["class" => "dropdown-item"]);
+                            }
+                        ?>
+                        <?php echo anchor("Users/Logout","Log out",["class" => "dropdown-item"]); ?>
                     </div>
                 </li>
 
