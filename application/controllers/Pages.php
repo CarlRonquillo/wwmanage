@@ -11,7 +11,7 @@ class Pages extends CI_Controller {
                 }
                 else
                 {
-                        $this->login();
+                        $this->load->view('login');
                 }
 	}
 }

@@ -3,7 +3,7 @@
 <main>
     <div class="container-fluid">
     	<div class="card">
-    		<h4 class="card-header blue-gradient white-text text-center py-3">My Project</h4>
+    		<h4 class="card-header blue-gradient white-text text-center py-3">Projects</h4>
   			<div class="card-body">
   				<?php 
 					if($error = $this->session->flashdata('response')):

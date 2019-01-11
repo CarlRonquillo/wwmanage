@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="collapsible-body">
                             <ul>
                                 <li><?php echo anchor("Project/new","Add Project",["class" => "waves-effect"]); ?></li>
-                                <li><?php echo anchor("Project/list","My Projects",["class" => "waves-effect"]); ?></li>
+                                <li><?php echo anchor("Project/list","View Projects",["class" => "waves-effect"]); ?></li>
                             </ul>
                         </div>
                     </li>

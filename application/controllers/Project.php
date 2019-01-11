@@ -13,8 +13,16 @@ class Project extends CI_Controller {
 
 	public function list()
 	{	
-		$this->load->model('ProjectModel');
-		$data['projects'] = $this->ProjectModel->getProjectsByUser($this->session->userdata('PersonID'));
+		if($this->session->userdata('Username') != 'admin')
+        {
+			$this->load->model('ProjectModel');
+			$data['projects'] = $this->ProjectModel->getProjectsByUser($this->session->userdata('PersonID'));
+		}
+		else
+		{
+			$this->load->model('PagesModel');
+			$data['projects'] = $this->PagesModel->getRecords('projects');
+		}
 		$this->load->view('project_list',$data);
 	}
 
