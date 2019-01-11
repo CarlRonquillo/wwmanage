@@ -10,11 +10,11 @@
 
 		public function getProjectsByUser($UserID)
 		{
-			$this->db->select('projects.*,person.PersonID');
+			$this->db->select('projects.*,Person.PersonID');
 			$this->db->from('projects');
 			$this->db->join('person', 'person.PersonID = projects.FKCreatedByID','left');
 			$this->db->order_by('projects.ProjectID', 'DESC');
-			$this->db->where("person.PersonID",$UserID);
+			$this->db->where("Person.PersonID",$UserID);
 			$this->db->where("projects.Deleted",0);
 			$query = $this->db->get();
 
