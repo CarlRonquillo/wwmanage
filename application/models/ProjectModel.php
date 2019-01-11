@@ -12,7 +12,7 @@
 		{
 			$this->db->select('projects.*,Person.PersonID');
 			$this->db->from('projects');
-			$this->db->join('person', 'person.PersonID = projects.FKCreatedByID','left');
+			$this->db->join('Person', 'person.PersonID = projects.FKCreatedByID','left');
 			$this->db->order_by('projects.ProjectID', 'DESC');
 			$this->db->where("Person.PersonID",$UserID);
 			$this->db->where("projects.Deleted",0);
