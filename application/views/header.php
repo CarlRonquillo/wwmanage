@@ -9,6 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="<?php echo base_url("assets/stylesheets/bootstrap.min.css"); ?>"/>
   <link rel="stylesheet" href="<?php echo base_url("assets/stylesheets/mdb.min.css"); ?>">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
   
 </head>
 <body class="fixed-sn white-skin">
@@ -34,12 +35,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <!-- Side navigation links -->
             <li>
                 <ul class="collapsible collapsible-accordion">
-                    <li><?php echo anchor("","<i class='fa fa-tachometer'></i> Dashboard",["class" => "collapsible-header waves-effect arrow-r"]); ?>
+                    <li><?php echo anchor("","<i class='fa fa-tachometer-alt'></i> Dashboard",["class" => "collapsible-header waves-effect arrow-r"]); ?>
                     </li>
                     <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-legal" aria-hidden="true"></i> Projects<i class="fa fa-angle-down rotate-icon"></i></a>
                         <div class="collapsible-body">
                             <ul>
-                                <li><?php echo anchor("Project/new","Add Project",["class" => "waves-effect"]); ?></li>
+                                <?php if($this->session->userdata('Role') == 2 or $this->session->userdata('Role') == 1)
+                                { ?>
+                                    <li> <?php echo anchor("Project/new","Add Project",["class" => "waves-effect"]); ?> </li>
+                                <?php } ?>
                                 <li><?php echo anchor("Project/list","View Projects",["class" => "waves-effect"]); ?></li>
                             </ul>
                         </div>
@@ -123,9 +127,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-user"></i> Users<i class="fa fa-angle-down rotate-icon"></i></a>
                         <div class="collapsible-body">
                             <ul>
-                                <li><a href="../forms/basic.html" class="waves-effect">Basic</a>
-                                </li>
-                                <li><a href="../forms/extended.html" class="waves-effect">Extended</a>
+                                <li><?php echo anchor("Users/New","Add User",["class" => "waves-effect"]); ?></li>
+                                <li><?php echo anchor("Users/List","View Users",["class" => "waves-effect"]); ?></li>
                                 </li>
                             </ul>
                         </div>

@@ -6,30 +6,31 @@ class Project extends CI_Controller {
 	public function new()
 	{
 		$this->load->model('PagesModel');
-		//$data['Field'] = $this->PagesModel->getList('Fields');
+		$data['Regions'] = $this->PagesModel->getRegions();
+		$data['Fields'] = $this->PagesModel->getFields();
 		$data['Categories'] = $this->PagesModel->getCategory();
 		$this->load->view('project_new',$data);
 	}
 
 	public function list()
 	{	
-		if($this->session->userdata('Username') != 'admin')
-        {
-			$this->load->model('ProjectModel');
-			$data['projects'] = $this->ProjectModel->getProjectsByUser($this->session->userdata('PersonID'));
-		}
-		else
-		{
-			$this->load->model('PagesModel');
-			$data['projects'] = $this->PagesModel->getRecords('projects');
-		}
+		//if($this->session->userdata('Username') != 'admin')
+        //{
+		$this->load->model('ProjectModel');
+		$data['projects'] = $this->ProjectModel->getProjectsByUser($this->session->userdata('PersonID'));
+		//}
+		//else
+		//{
+		//	$this->load->model('PagesModel');
+		//	$data['projects'] = $this->PagesModel->getRecords('projects');
+		//}
 		$this->load->view('project_list',$data);
 	}
 
 	public function view($id)
 	{	
-		$this->load->model('PagesModel');
-		$data['project'] = $this->PagesModel->viewRecord('projects','ProjectID',$id);
+		$this->load->model('ProjectModel');
+		$data['project'] = $this->ProjectModel->viewProject($id);
 		$this->load->view('project_view',$data);
 	}
 
@@ -146,6 +147,13 @@ class Project extends CI_Controller {
         }
 
 		return redirect("Project/new/{$categoryList}");
+	}
+
+	public function ChangeStatus($id,$status)
+	{
+		$this->load->model('ProjectModel');
+		$this->ProjectModel->ChangeStatus($id,$status);
+		return redirect("Project/view/{$id}");
 	}
 
 }

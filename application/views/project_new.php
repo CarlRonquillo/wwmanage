@@ -43,8 +43,12 @@
 				<div class="input-group">
 					<div class="form-group col-lg-6">
 						<label>Region<i class="text-warning">*</i></label>
-						<?php $Region = array('');
-							echo form_dropdown(['id' => 'FKRegionID','name' => 'FKRegionID', 'class' => 'browser-default custom-select col-lg-6','autocomplete' => 'off'],$Region); ?>
+						<?php $region_array = array();
+							foreach($Regions as $Region)
+                            {
+                                $region_array[$Region->RegionID]=$Region->RegionName;
+                            }
+							echo form_dropdown(['id' => 'FKRegionID','name' => 'FKRegionID', 'class' => 'browser-default custom-select col-lg-6','autocomplete' => 'off','onChange' => 'changecat(this.value);'],$region_array); ?>
 						<span><?php echo form_error('FKRegionID') ?></span>
 					</div>
 					<div class="form-group col-lg-6">
@@ -57,12 +61,7 @@
 				<div class="input-group">
 					<div class="form-group col-lg-6">
 						<label>Field/World Area<i class="text-warning">*</i></label>
-						<?php $_Field = array('');
-							//foreach($Field as $field)
-							//{
-							//	$_Field[$field->ListKey]=$field->Value;
-							//}
-							echo form_dropdown(['id' => 'FKFieldID','name' => 'FKFieldID', 'class' => 'browser-default custom-select col-lg-6','autocomplete' => 'off'],$_Field); ?>
+						<?php echo form_dropdown(['id' => 'FKFieldID','name' => 'FKFieldID', 'class' => 'browser-default custom-select col-lg-6','autocomplete' => 'off']); ?>
 						<span><?php echo form_error('FKFieldID') ?></span>
 					</div>
 					<div class="form-group col-lg-6">
@@ -158,4 +157,35 @@
 	</div>
 </main>
 
+<?php 
+	$field_array = array();
+	if(isset($field_array))
+	{
+		foreach($Fields as $Field)
+	    {
+	    	$field_array[$Field->region_id][$Field->id]=[$Field->name];
+	    }
+	}
+?>
+
 <?php include('footer.php'); ?>
+
+<script>
+	var availableTags = <?php if(isset($field_array)) {echo json_encode($field_array);} ?>;
+	var fieldsCategory = {
+	  1: ["Soup", "Juice", "Tea", "Others"],
+	  2: ["Soup", "Juice", "Water", "Others"],
+	  4: ["Soup", "Juice", "Coffee", "Tea", "Others"]
+	}
+
+	function changecat(value) {
+	  if (value.length == 0) document.getElementById("FKFieldID").innerHTML = "<option></option>";
+	  else {
+	    var catOptions = "";
+	    for (categoryId in availableTags[value]) {
+	      catOptions += "<option value="+ availableTags[categoryId] +">" + availableTags[value][categoryId] + "</option>";
+	    }
+	    document.getElementById("FKFieldID").innerHTML = catOptions;
+	  }
+	}
+</script>

@@ -20,6 +20,24 @@
 			}
 		}
 
+		public function getRegions()
+		{
+			$query = $this->db->get('opal_region');
+			if($query->num_rows() > 0)
+			{
+				return $query->result();
+			}
+		}
+
+		public function getFields()
+		{
+			$query = $this->db->get('fields');
+			if($query->num_rows() > 0)
+			{
+				return $query->result();
+			}
+		}
+
 		public function getAllRecords($record_id,$tableName,$PKfield)
 		{
 			$query = $this->db->get_where($tableName,array($PKfield=> $record_id));
