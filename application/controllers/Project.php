@@ -128,6 +128,7 @@ class Project extends CI_Controller {
         {
         	$data = $this->input->post();
 	        unset($data['FKCategoryID']);
+	        $data['FKCreatedByID'] = $this->session->userdata('PersonID');
 
         	if($this->PagesModel->saveRecord($data,'projects'))
             {
