@@ -22,7 +22,7 @@
 
 		public function getRegions()
 		{
-			$query = $this->db->get('opal_region');
+			$query = $this->db->get('OPAL_Region');
 			if($query->num_rows() > 0)
 			{
 				return $query->result();
