@@ -139,11 +139,14 @@
 				<div class="input-group">
 					<div class="form-group col-lg-6">
 						<label>Coordinator<i class="text-warning">*</i></label>
-						<?php $coordinator_array = array();
-							foreach($Coordinators as $Coordinator)
-                            {
-                                $coordinator_array[$Coordinator->PersonID]=$Coordinator->GivenName + ' ' +$Coordinator->FamilyName;
-                            }
+						<?php $coordinator_array = array('');
+							if(isset($Coordinators))
+							{
+								foreach($Coordinators as $Coordinator)
+	                            {
+	                                $coordinator_array[$Coordinator->PersonID]=$Coordinator->GivenName.' '.$Coordinator->FamilyName;
+	                            }
+                        	}
 							echo form_dropdown(['id' => 'FKSiteCoordinatorID','name' => 'FKSiteCoordinatorID', 'class' => 'browser-default custom-select col-lg-8'],$coordinator_array); ?>
 						<span><?php echo form_error('FKSiteCoordinatorID') ?></span>
 					</div>

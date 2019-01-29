@@ -154,7 +154,7 @@
 							{
 								foreach($Coordinators as $Coordinator)
 	                            {
-	                                $coordinator_array[$Coordinator->PersonID]=$Coordinator->GivenName .' '.$Coordinator->FamilyName;
+	                                $coordinator_array[$Coordinator->PersonID]=$Coordinator->GivenName.' '.$Coordinator->FamilyName;
 	                            }
 							}
 							echo form_dropdown(['id' => 'FKSiteCoordinatorID','name' => 'FKSiteCoordinatorID', 'class' => 'browser-default custom-select col-lg-8'],$coordinator_array,$project->FKSiteCoordinatorID); ?>
