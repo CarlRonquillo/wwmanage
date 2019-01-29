@@ -11,6 +11,16 @@
 			}
 		}
 
+		public function getCoordinators()
+		{
+			$query = $this->db->get_where('Person',array('Role' => '5','Deleted' => '0'));
+			if($query->num_rows() > 0)
+			{
+				return $query->result();
+			}
+		}
+
+
 		public function getCategory()
 		{
 			$query = $this->db->get('category');
@@ -29,9 +39,18 @@
 			}
 		}
 
+		public function getCountries()
+		{
+			$query = $this->db->get('countries');
+			if($query->num_rows() > 0)
+			{
+				return $query->result();
+			}
+		}
+
 		public function getFields()
 		{
-			$query = $this->db->get('fields');
+			$query = $this->db->get_where('fields',array('is_active' => '1'));
 			if($query->num_rows() > 0)
 			{
 				return $query->result();

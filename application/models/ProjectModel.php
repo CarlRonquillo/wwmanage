@@ -49,7 +49,7 @@
 
 		public function viewProject($ProjectID)
 		{
-			$this->db->select('projects.*,Person.PersonID,project_status.Title');
+			$this->db->select('projects.*,Person.PersonID,Person.GivenName,Person.FamilyName,project_status.Title');
 			$this->db->from('projects');
 			$this->db->join('Person', 'Person.PersonID = projects.FKCreatedByID','left');
 			$this->db->join('project_status', 'project_status.Code = projects.Status','left');

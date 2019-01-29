@@ -77,9 +77,13 @@
 				</div>
 				<div class="input-group">
 					<div class="form-group col-lg-6">
-						<label>Distict<i class="text-warning">*</i></label>
-						<?php $District = array('');
-							echo form_dropdown(['id' => 'FKDistrictID','name' => 'FKDistrictID', 'class' => 'browser-default custom-select col-lg-6','autocomplete' => 'off'],$District); ?>
+						<label>District<i class="text-warning">*</i></label>
+						<?php $district_array = array();
+							foreach($Districts as $District)
+                            {
+                                $district_array[$District->id]=$District->district_name;
+                            }
+							echo form_dropdown(['id' => 'FKDistrictID','name' => 'FKDistrictID', 'class' => 'browser-default custom-select col-lg-6','autocomplete' => 'off'],$district_array); ?>
 						<span><?php echo form_error('FKDistrictID') ?></span>
 					</div>
 					<div class="form-group col-lg-6">
@@ -96,8 +100,12 @@
 				<div class="input-group">
 					<div class="form-group col-lg-6">
 						<label>Country<i class="text-warning">*</i></label>
-						<?php $Country = array('');
-							echo form_dropdown(['id' => 'Country','name' => 'FKCountryID', 'class' => 'browser-default custom-select col-lg-6','autocomplete' => 'off'],$Country); ?>
+						<?php $country_array = array();
+							foreach($Countries as $Country)
+                            {
+                                $country_array[$Country->id]=$Country->country_name;
+                            }
+							echo form_dropdown(['id' => 'Country','name' => 'FKCountryID', 'class' => 'browser-default custom-select col-lg-6','autocomplete' => 'off'],$country_array); ?>
 						<span><?php echo form_error('Country') ?></span>
 					</div>
 					<div class="form-group col-lg-6">
@@ -131,8 +139,12 @@
 				<div class="input-group">
 					<div class="form-group col-lg-6">
 						<label>Coordinator<i class="text-warning">*</i></label>
-						<?php $Coordinator = array('');
-							echo form_dropdown(['id' => 'FKSiteCoordinatorID','name' => 'FKSiteCoordinatorID', 'class' => 'browser-default custom-select col-lg-8'],$Coordinator); ?>
+						<?php $coordinator_array = array();
+							foreach($Coordinators as $Coordinator)
+                            {
+                                $coordinator_array[$Coordinator->PersonID]=$Coordinator->GivenName + ' ' +$Coordinator->FamilyName;
+                            }
+							echo form_dropdown(['id' => 'FKSiteCoordinatorID','name' => 'FKSiteCoordinatorID', 'class' => 'browser-default custom-select col-lg-8'],$coordinator_array); ?>
 						<span><?php echo form_error('FKSiteCoordinatorID') ?></span>
 					</div>
 				</div>
@@ -148,7 +160,7 @@
 					<span><?php echo form_error('FKCategoryID') ?></span>
 				<br>
 				<div class="form-group">
-					<?php echo form_submit(['value' => 'Submit','class' => 'btn blue-gradient']); ?>
+					<?php echo form_submit(['value' => 'SAVE','class' => 'btn blue-gradient']); ?>
 				</div>
 			</fieldset>
 		<?php echo form_close(); ?>
@@ -172,20 +184,25 @@
 
 <script>
 	var availableTags = <?php if(isset($field_array)) {echo json_encode($field_array);} ?>;
-	var fieldsCategory = {
+	/*var fieldsCategory = {
 	  1: ["Soup", "Juice", "Tea", "Others"],
 	  2: ["Soup", "Juice", "Water", "Others"],
 	  4: ["Soup", "Juice", "Coffee", "Tea", "Others"]
-	}
+	}*/
 
 	function changecat(value) {
 	  if (value.length == 0) document.getElementById("FKFieldID").innerHTML = "<option></option>";
 	  else {
 	    var catOptions = "";
 	    for (categoryId in availableTags[value]) {
-	      catOptions += "<option value="+ availableTags[categoryId] +">" + availableTags[value][categoryId] + "</option>";
+	      catOptions += "<option value="+ categoryId +">" + availableTags[value][categoryId] + "</option>";
 	    }
 	    document.getElementById("FKFieldID").innerHTML = catOptions;
 	  }
 	}
+
+	$( document ).ready(function() {
+		var value =  document.getElementById("FKRegionID").value;
+		changecat(value);
+    });
 </script>

@@ -8,7 +8,10 @@ class Project extends CI_Controller {
 		$this->load->model('PagesModel');
 		$data['Regions'] = $this->PagesModel->getRegions();
 		$data['Fields'] = $this->PagesModel->getFields();
+		$data['Districts'] = $this->PagesModel->getRecords('districts');
 		$data['Categories'] = $this->PagesModel->getCategory();
+		$data['Coordinators'] = $this->PagesModel->getCoordinators();
+		$data['Countries'] = $this->PagesModel->getRecords('countries');
 		$this->load->view('project_new',$data);
 	}
 
@@ -38,7 +41,12 @@ class Project extends CI_Controller {
 	{	
 		$this->load->model('PagesModel');
 		$data['project'] = $this->PagesModel->viewRecord('projects','ProjectID',$id);
+		$data['Regions'] = $this->PagesModel->getRegions();
+		$data['Countries'] = $this->PagesModel->getRecords('countries');
+		$data['Fields'] = $this->PagesModel->getFields();
 		$data['Categories'] = $this->PagesModel->getCategory();
+		$data['Coordinators'] = $this->PagesModel->getCoordinators();
+		$data['Districts'] = $this->PagesModel->getRecords('districts');
 		$this->load->view('project_edit',$data);
 	}
 

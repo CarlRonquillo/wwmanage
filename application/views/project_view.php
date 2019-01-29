@@ -68,8 +68,8 @@
 		    <h6 class="font-weight-bold text-warning">Compassionate Ministries • Construction • Evangelism</h6>
 		    <ul class="list-unstyled list-inline font-small">
 		      <li class="list-inline-item pr-2"><i class="fa fa-clock-o pr-1"></i><?php echo date("M j, Y", strtotime($project->CreatedDate))." - ".date("M j, Y", strtotime($project->ExpirationDate)) ?></li>
-		      <li class="list-inline-item pr-2"><i class="fa fa-map-marker pr-1"></i><?php echo $project->ArrivalCity ?></li>
-		      <li class="list-inline-item pr-2"><i class="fas fa-user-tie pr-1"> </i>Juan dela Cruz</li>
+		      <li class="list-inline-item pr-2"><abbr title="Arrival City" class="initialism"><i class="fa fa-map-marker pr-1"></i></abbr><?php echo $project->ArrivalCity ?></li>
+		      <li class="list-inline-item pr-2"><abbr title="Created By" class="initialism"><i class="fas fa-user-tie pr-1"></i></abbr><?php echo $project->GivenName.' '.$project->FamilyName; ?></li>
 		      <li class="list-inline-item pr-2">|</li>
 		      <li class="list-inline-item"><b><abbr title="Estimated Cost" class="initialism">EC </abbr></b><?php echo "$".$project->EstimatedCost ?></li>
 		      <li class="list-inline-item"><b><abbr title="Requested Fund" class="initialism">RF </abbr></b><?php echo "$".$project->RequestedProjectFunds ?></li>
