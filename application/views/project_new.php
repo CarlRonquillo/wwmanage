@@ -132,26 +132,6 @@
 					</div>
 				</div>
 
-
-				<br><h4 class="text-warning">Site Coordinator <i class="text-warning">*</i></h4><hr>
-				<p>If you do not see a specific sire coordinator on this list please write to <b>nazww@nazarene.org</b> with the site coordinator's name, email address and phone number and a note to add them as a site coordinator.</p>
-				<p><i>Note: This field does not populate until you have specified what district a project is located on.</i></p>
-				<div class="input-group">
-					<div class="form-group col-lg-6">
-						<label>Coordinator<i class="text-warning">*</i></label>
-						<?php $coordinator_array = array('');
-							if(isset($Coordinators))
-							{
-								foreach($Coordinators as $Coordinator)
-	                            {
-	                                $coordinator_array[$Coordinator->PersonID]=$Coordinator->GivenName.' '.$Coordinator->FamilyName;
-	                            }
-                        	}
-							echo form_dropdown(['id' => 'FKSiteCoordinatorID','name' => 'FKSiteCoordinatorID', 'class' => 'browser-default custom-select col-lg-8'],$coordinator_array); ?>
-						<span><?php echo form_error('FKSiteCoordinatorID') ?></span>
-					</div>
-				</div>
-
 				<br><h4 class="text-warning">Project Categories <i class="text-warning">*</i></h4><hr>
 				
 				<?php foreach($Categories as $cat) { ?>

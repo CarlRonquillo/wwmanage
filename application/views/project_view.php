@@ -69,14 +69,17 @@
 		    <ul class="list-unstyled list-inline font-small">
 		      <li class="list-inline-item pr-2"><i class="fa fa-clock-o pr-1"></i><?php echo date("M j, Y", strtotime($project->CreatedDate))." - ".date("M j, Y", strtotime($project->ExpirationDate)) ?></li>
 		      <li class="list-inline-item pr-2"><abbr title="Arrival City" class="initialism"><i class="fa fa-map-marker pr-1"></i></abbr><?php echo $project->ArrivalCity ?></li>
-		      <li class="list-inline-item pr-2"><abbr title="Created By" class="initialism"><i class="fas fa-user-tie pr-1"></i></abbr><?php echo $project->GivenName.' '.$project->FamilyName; ?></li>
+		      <li class="list-inline-item pr-2"><abbr title="Site Coordinator" class="initialism"><i class="fas fa-user-tie pr-1"></i></abbr><?php echo $project->SiteCoordinator ?></li>
 		      <li class="list-inline-item pr-2">|</li>
 		      <li class="list-inline-item"><b><abbr title="Estimated Cost" class="initialism">EC </abbr></b><?php echo "$".$project->EstimatedCost ?></li>
 		      <li class="list-inline-item"><b><abbr title="Requested Fund" class="initialism">RF </abbr></b><?php echo "$".$project->RequestedProjectFunds ?></li>
 		      <li class="list-inline-item"><b><abbr title="Individual Cost Per Day" class="initialism">ICD </abbr></b><?php echo "$".$project->IndividualCostPerDay ?></li>
 		    </ul>
 		    <?php if($project->YouthTeamsAccepted == '1'){ ?>
-		    	<p class="card-text"><i>Youth Teams Welcome</i></p>
+		    	<p class="card-text"><i>Youth teams are welcome</i></p>
+			<?php } 
+			else { ?>
+				<p class="card-text text-danger"><i>Youth teams are not welcome</i></p>
 			<?php } ?>
 		    <br>
 
@@ -84,26 +87,34 @@
 		    <p class="card-text text-justify"><?php echo $project->VisionObjective ?></p>
 		    <h6 class="font-weight-bold indigo-text">Description</h6>
 		    <p class="card-text text-justify"><?php echo $project->Description ?></p>
-		    <br>
+		    <br><hr>
 
-		    <?php echo anchor("","<i class='fa fa-phone mr-1'></i>Contact Coordinator",["class"=>"btn btn-primary btn-sm"]); ?>
-		    <?php 
+		    <?php if($project->FKSiteCoordinatorID != 0)
+		    {
+		    	echo anchor("","<i class='fa fa-phone mr-1'></i>Contact Coordinator",["class"=>"btn btn-primary btn-sm", "data-toggle"=>"modal", "data-target"=>"#modalLoginAvatar"]);
+		    }
+
+		    if($this->session->userdata('Role') == 3 and $project->Status == 1)
+		    {
+		    	echo anchor("Project/coordinator/{$project->ProjectID}","<i class='fas fa-user-cog'></i> Manage Coordinator",["class"=>"btn btn-primary btn-sm"]);
+		    }
+
 			if($this->session->userdata('CanApprove') and $project->Status != 4)
 		    	{
 		    		if($this->session->userdata('Role') == 3 and $project->Status == 1)
 		    		{
-						echo anchor("Project/ChangeStatus/{$project->ProjectID}/2","<i class='fas fa-thumbs-up'></i> Submit to Region",["class"=>"btn btn-success btn-sm","onclick" => "return alert('This project will now proceed for Regional Approval, do you wish you to continue?')"]);
-						echo anchor("Project/ChangeStatus/{$project->ProjectID}/4","<i class='fas fa-thumbs-down'></i> Disapprove",["class"=>"btn btn-danger btn-sm","onclick" => "return alert('Are you sure you want to Approve this Project?')"]);
+						echo anchor(($project->FKSiteCoordinatorID != 0 ? "Project/ChangeStatus/{$project->ProjectID}/2": "Project/coordinator/{$project->ProjectID}"),"<i class='fas fa-thumbs-up'></i> Submit to Region",["class"=>"btn btn-success btn-sm","onclick" => ($project->FKSiteCoordinatorID != 0 ? "return confirm('This project will now proceed for Regional Approval, do you wish you to continue?')" : "return alert('Please assign a SITE COORDINATOR before proceeding to this action.')")]);
+						echo anchor("Project/ChangeStatus/{$project->ProjectID}/4","<i class='fas fa-thumbs-down'></i> Disapprove",["class"=>"btn btn-danger btn-sm","onclick" => "return confirm('Are you sure you want to Approve this Project?')"]);
 		    		}
 		    		elseif($this->session->userdata('Role') == 4 and $project->Status == 2)
 		    		{
-		    			echo anchor("Project/ChangeStatus/{$project->ProjectID}/3","<i class='fas fa-thumbs-up'></i> Approve",["class"=>"btn btn-success btn-sm","onclick" => "return alert('Are you sure you want to Approve this project?')"]);
-		    			echo anchor("Project/ChangeStatus/{$project->ProjectID}/4","<i class='fas fa-thumbs-down'></i> Disapprove",["class"=>"btn btn-danger btn-sm","onclick" => "return alert('Are you sure you want to Approve this Project?')"]);
+		    			echo anchor("Project/ChangeStatus/{$project->ProjectID}/3","<i class='fas fa-thumbs-up'></i> Approve",["class"=>"btn btn-success btn-sm","onclick" => "return confirm('Are you sure you want to Approve this project?')"]);
+		    			echo anchor("Project/ChangeStatus/{$project->ProjectID}/4","<i class='fas fa-thumbs-down'></i> Disapprove",["class"=>"btn btn-danger btn-sm","onclick" => "return confirm('Are you sure you want to Approve this Project?')"]);
 		    		}
 		    	}
 		    if(($project->Status == 1 or $project->Status == 4) and ($this->session->userdata('PersonID') == $project->FKCreatedByID))
 		    {
-		    	echo anchor("Project/ChangeStatus/{$project->ProjectID}/0","<i class='fas fa-undo-alt'></i> Return to Draft",["class"=>"btn btn-default btn-sm","onclick" => "return alert('This project is being reviewed, Do you wish to continue?')"]);
+		    	echo anchor("Project/ChangeStatus/{$project->ProjectID}/0","<i class='fas fa-undo-alt'></i> Return to Draft",["class"=>"btn btn-default btn-sm","onclick" => "return confirm('This project is being reviewed, Do you wish to continue?')"]);
 		    }
 		    else
 		    {
@@ -115,6 +126,43 @@
 				}
 		    } ?>
 		  </div>
+
+			<!--Modal: Login with Avatar Form-->
+			<div class="modal fade" id="modalLoginAvatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+			  aria-hidden="true">
+			  <div class="modal-dialog cascading-modal modal-avatar" role="document">
+			    <!--Content-->
+			    <div class="modal-content">
+
+			      <!--Header-->
+			      <div class="modal-header">
+			        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(27).jpg" alt="avatar" class="rounded-circle img-responsive">
+			      </div>
+			     <div class="modal-body mx-3">
+			     	<h5 class="mt-1 mb-2 text-center">say something to <b><?php echo $project->SiteCoordinator; ?></b></h5>
+
+		        <div class="md-form mb-5">
+		          <input type="text" id="form32" class="form-control validate">
+		          <label data-error="wrong" data-success="right" for="form32">Subject</label>
+		        </div>
+
+		        <div class="md-form">
+		          <textarea type="text" id="form8" class="md-textarea form-control" rows="4"></textarea>
+		          <label data-error="wrong" data-success="right" for="form8">Your message</label>
+		        </div>
+
+		      </div>
+		      <div class="modal-footer d-flex justify-content-center">
+		        <button class="btn btn-unique">Send</button>
+		      </div>
+		    </div>
+
+			    </div>
+			    <!--/.Content-->
+			  </div>
+			</div>
+			<!--Modal: Login with Avatar Form-->
+
 
 		</div>
   	</div>

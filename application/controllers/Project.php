@@ -37,6 +37,15 @@ class Project extends CI_Controller {
 		$this->load->view('project_view',$data);
 	}
 
+	public function coordinator($id)
+	{	
+		$this->load->model('PagesModel');
+		$data['Coordinators'] = $this->PagesModel->getCoordinators();
+		$this->load->model('ProjectModel');
+		$data['project'] = $this->ProjectModel->viewProject($id);
+		$this->load->view('project_coordinator',$data);
+	}
+
 	public function edit($id)
 	{	
 		$this->load->model('PagesModel');
@@ -86,6 +95,11 @@ class Project extends CI_Controller {
 		$this->form_validation->set_rules('FKSiteCoordinatorID','Coordinator','required|min_length[1]');*/
 		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
 		$this->load->model('PagesModel');
+
+		if(!isset($data['YouthTeamsAccepted']))
+		{
+			$data['YouthTeamsAccepted'] = 0;
+		}
 
 		if ($this->form_validation->run())
         {
@@ -163,6 +177,14 @@ class Project extends CI_Controller {
 		$this->load->model('ProjectModel');
 		$this->ProjectModel->ChangeStatus($id,$status);
 		return redirect("Project/view/{$id}");
+	}
+
+	public function SaveCoordinator($ProjectID)
+	{
+		$this->load->model('ProjectModel');
+		$CoordinatorID = $_POST['FKSiteCoordinatorID'];
+		$this->ProjectModel->UpdateCoordinator($ProjectID,$CoordinatorID);
+		return redirect("Project/view/{$ProjectID}");
 	}
 
 }

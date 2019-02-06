@@ -136,9 +136,9 @@
                     	<span><?php echo form_error('City') ?></span>
 					</div>
 					<div class="custom-control custom-checkbox col-lg-5">
-						<?php echo form_checkbox(['name' => 'YouthTeamsAccepted','value' => '1','maxlength' => 1, 'checked' => $project->YouthTeamsAccepted, 'id' => 'YouthAccepted', 'class' => 'custom-control-input']); ?>
-						<label for="YouthAccepted" class="custom-control-label">Youth Teams Accepted?</label>
-						<span> <?php echo form_error('YouthAccepted') ?> </span>
+						<?php echo form_checkbox(['name' => 'YouthTeamsAccepted','value' => '1','maxlength' => 1, 'checked' => $project->YouthTeamsAccepted, 'id' => 'YouthTeamsAccepted', 'class' => 'custom-control-input']); ?>
+						<label for="YouthTeamsAccepted" class="custom-control-label">Youth Teams Accepted?</label>
+						<span> <?php echo form_error('YouthTeamsAccepted') ?> </span>
 					</div>
 				</div>
 
@@ -154,7 +154,7 @@
 							{
 								foreach($Coordinators as $Coordinator)
 	                            {
-	                                $coordinator_array[$Coordinator->PersonID]=$Coordinator->GivenName.' '.$Coordinator->FamilyName;
+	                                $coordinator_array[$Coordinator->PersonID]=$Coordinator->GivenName .' '.$Coordinator->FamilyName;
 	                            }
 							}
 							echo form_dropdown(['id' => 'FKSiteCoordinatorID','name' => 'FKSiteCoordinatorID', 'class' => 'browser-default custom-select col-lg-8'],$coordinator_array,$project->FKSiteCoordinatorID); ?>

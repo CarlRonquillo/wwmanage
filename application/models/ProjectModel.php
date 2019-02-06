@@ -15,6 +15,13 @@
 			return $this->db->update('projects', $data);
 		}
 
+		public function UpdateCoordinator($projectID,$coordinatorID)
+		{
+			$data = array('FKSiteCoordinatorID' => $coordinatorID);
+			$this->db->where('ProjectID', $projectID);
+			return $this->db->update('projects', $data);
+		}
+
 		public function getProjectsByUser($UserID)
 		{
 			$this->db->select('projects.*,Person.PersonID,project_status.Title');
@@ -49,7 +56,15 @@
 
 		public function viewProject($ProjectID)
 		{
-			$this->db->select('projects.*,Person.PersonID,Person.GivenName,Person.FamilyName,project_status.Title');
+			$this->db->select("CONCAT(Person.GivenName,' ',Person.FamilyName)");
+			$this->db->from('projects');
+			$this->db->join('Person', 'Person.PersonID = projects.FKSiteCoordinatorID','left');
+			$this->db->where("projects.Deleted",0);
+			$this->db->where("projects.ProjectID",$ProjectID);
+			$subQuery  =  $this->db->get_compiled_select();
+
+
+			$this->db->select('projects.*,Person.PersonID,Person.GivenName,Person.FamilyName,project_status.Title,('. $subQuery .') as SiteCoordinator');
 			$this->db->from('projects');
 			$this->db->join('Person', 'Person.PersonID = projects.FKCreatedByID','left');
 			$this->db->join('project_status', 'project_status.Code = projects.Status','left');
