@@ -54,6 +54,12 @@ class Users extends CI_Controller {
                 $this->load->model('UserModel');
                 $data['User'] = $this->UserModel->viewUser($PersonID);
                 $data['Roles'] = $this->UserModel->getRoles();
+
+                $this->load->model('PagesModel');
+                $data['Regions'] = $this->PagesModel->getRegions();
+                $data['Fields'] = $this->PagesModel->getFields();
+                $data['Districts'] = $this->PagesModel->getRecords('districts');
+                $data['Countries'] = $this->PagesModel->getRecords('countries');
                 $this->load->view('user_view',$data);
         }
 
@@ -61,6 +67,11 @@ class Users extends CI_Controller {
         {
                 $this->load->model('UserModel');
                 $data['Roles'] = $this->UserModel->getRoles();
+                $this->load->model('PagesModel');
+                $data['Regions'] = $this->PagesModel->getRegions();
+                $data['Fields'] = $this->PagesModel->getFields();
+                $data['Districts'] = $this->PagesModel->getRecords('districts');
+                $data['Countries'] = $this->PagesModel->getRecords('countries');
                 $this->load->view('user_new',$data);
         }
 

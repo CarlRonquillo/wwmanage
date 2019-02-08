@@ -167,11 +167,6 @@
 
 <script>
 	var availableTags = <?php if(isset($field_array)) {echo json_encode($field_array);} ?>;
-	/*var fieldsCategory = {
-	  1: ["Soup", "Juice", "Tea", "Others"],
-	  2: ["Soup", "Juice", "Water", "Others"],
-	  4: ["Soup", "Juice", "Coffee", "Tea", "Others"]
-	}*/
 
 	function changecat(value) {
 	  if (value.length == 0) document.getElementById("FKFieldID").innerHTML = "<option></option>";

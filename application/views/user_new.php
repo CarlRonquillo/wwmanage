@@ -67,6 +67,45 @@
 						<span> <?php echo form_error('Role') ?> </span>
 					</div>
 				</div>
+				<div class="input-group">
+					<div class="form-group col-lg-6">
+						<label>Region<i class="text-warning">*</i></label>
+						<?php $region_array = array();
+							foreach($Regions as $Region)
+                            {
+                                $region_array[$Region->RegionID]=$Region->RegionName;
+                            }
+							echo form_dropdown(['id' => 'FKRegionID','name' => 'FKRegionID', 'class' => 'browser-default custom-select','autocomplete' => 'off','onChange' => 'changecat(this.value);'],$region_array); ?>
+						<span><?php echo form_error('FKRegionID') ?></span>
+					</div>
+					<div class="form-group col-lg-6">
+						<label>Field/World Area<i class="text-warning">*</i></label>
+						<?php echo form_dropdown(['id' => 'FKFieldID','name' => 'FKFieldID', 'class' => 'browser-default custom-select','autocomplete' => 'off']); ?>
+						<span><?php echo form_error('FKFieldID') ?></span>
+					</div>
+				</div>
+				<div class="input-group">
+					<div class="form-group col-lg-6">
+						<label>Country<i class="text-warning">*</i></label>
+						<?php $country_array = array();
+							foreach($Countries as $Country)
+                            {
+                                $country_array[$Country->id]=$Country->country_name;
+                            }
+							echo form_dropdown(['id' => 'Country','name' => 'FKCountryID', 'class' => 'browser-default custom-select','autocomplete' => 'off'],$country_array); ?>
+						<span><?php echo form_error('Country') ?></span>
+					</div>
+					<div class="form-group col-lg-6">
+						<label>District<i class="text-warning">*</i></label>
+						<?php $district_array = array();
+							foreach($Districts as $District)
+                            {
+                                $district_array[$District->id]=$District->district_name;
+                            }
+							echo form_dropdown(['id' => 'FKDistrictID','name' => 'FKDistrictID', 'class' => 'browser-default custom-select','autocomplete' => 'off'],$district_array); ?>
+						<span><?php echo form_error('FKDistrictID') ?></span>
+					</div>
+				</div>
 				<br>
 				<div class="form-group">
 					<?php echo form_submit(['value' => 'Submit','class' => 'btn blue-gradient']); ?>
@@ -80,3 +119,34 @@
 </main>
 
 <?php include('footer.php'); ?>
+
+<?php 
+	$field_array = array();
+	if(isset($field_array))
+	{
+		foreach($Fields as $Field)
+	    {
+	    	$field_array[$Field->region_id][$Field->id]=[$Field->name];
+	    }
+	}
+?>
+
+<script>
+	var availableTags = <?php if(isset($field_array)) {echo json_encode($field_array);} ?>;
+
+	function changecat(value) {
+	  if (value.length == 0) document.getElementById("FKFieldID").innerHTML = "<option></option>";
+	  else {
+	    var catOptions = "";
+	    for (categoryId in availableTags[value]) {
+	      catOptions += "<option value="+ categoryId +">" + availableTags[value][categoryId] + "</option>";
+	    }
+	    document.getElementById("FKFieldID").innerHTML = catOptions;
+	  }
+	}
+
+	$( document ).ready(function() {
+		var value =  document.getElementById("FKRegionID").value;
+		changecat(value);
+    });
+</script>
