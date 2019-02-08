@@ -83,7 +83,7 @@ class Users extends CI_Controller {
                 {
                 $data = $this->input->post();
 
-                        if($this->PagesModel->saveRecord($data,'person'))
+                        if($this->PagesModel->saveRecord($data,'Person'))
                         {
                         $this->session->set_flashdata('response','User successfully saved.');
                         }
