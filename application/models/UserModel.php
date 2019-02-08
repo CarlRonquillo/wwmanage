@@ -31,7 +31,7 @@
 		{
 			$this->db->select('Person.*,person_roles.Title');
 			$this->db->from('Person');
-			$this->db->join('person_roles', 'person_roles.RoleID = person.Role','left');
+			$this->db->join('person_roles', 'person_roles.RoleID = Person.Role','left');
 			$this->db->order_by('Person.PersonID', 'DESC');
 			$this->db->where("Person.Deleted",0);
 			$query = $this->db->get();
@@ -46,7 +46,7 @@
 		{
 			$this->db->select('Person.*,person_roles.Title');
 			$this->db->from('Person');
-			$this->db->join('person_roles', 'person_roles.RoleID = person.Role','left');
+			$this->db->join('person_roles', 'person_roles.RoleID = Person.Role','left');
 			$this->db->order_by('Person.PersonID', 'DESC');
 			$this->db->where("Person.PersonID",$PersonID);
 			$query = $this->db->get();

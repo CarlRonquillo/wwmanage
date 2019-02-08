@@ -23,12 +23,11 @@
 				    <thead>
 				      <tr>
 				        <th scope="col" class="font-weight-bold dark-grey-text">#</th>
+				        <th scope="col" class="font-weight-bold dark-grey-text">User Name</th>
 				        <th scope="col" class="font-weight-bold dark-grey-text">Given Name</th>
 				        <th scope="col" class="font-weight-bold dark-grey-text">Family Name</th>
-				        <th scope="col" class="font-weight-bold dark-grey-text">User Name</th>
 				        <th scope="col" class="font-weight-bold dark-grey-text">Email</th>
 				        <th scope="col" class="font-weight-bold dark-grey-text">Role</th>
-				        <th scope="col" class="font-weight-bold dark-grey-text"></th>
 				      </tr>
 				    </thead>
 				    <tbody>
@@ -37,12 +36,12 @@
 				    	<?php foreach($Users as $User) { ?>
 					      <tr>
 					        <th scope="row"><?php echo $i += 1; ?></th>
-					        <td class="text-truncate" style="max-width: 200px;"><?php echo anchor("users/view/{$User->PersonID}",$User->GivenName); ?></td>
-					        <td class="text-truncate" style="max-width: 250px;" ><?php echo $User->FamilyName?></td>
-					        <td><?php echo $User->Username ?></td>
+					        <td class="text-truncate" style="max-width: 200px;"><?php echo anchor("users/view/{$User->PersonID}",$User->Username,["class"=>"text-info"]); ?></td>
+					        <td class="text-truncate" style="max-width: 250px;" ><?php echo $User->GivenName?></td>
+					        <td><?php echo $User->FamilyName ?></td>
 					        <td><?php echo $User->EmailAddress ?></td>
 					        <td><?php echo $User->Title ?></td>
-					        <td> <?php echo anchor("Users/delete/{$User->PersonID}","<i class='fa fa-close mr-1'></i>",["class"=>"btn-floating btn-danger btn-sm","onclick" => "return confirm('Are you sure you want delete?')"]); ?></td>
+					        <td> <?php echo ($this->session->userdata('Role') != 1 ? "" : anchor("Users/delete/{$User->PersonID}","<i class='fas fa-times'></i>",["class"=>"text-danger","onclick" => "return confirm('Are you sure you want delete?')"])); ?></td>
 					      </tr>
 					    <?php } else: ?>
 					    <td>No record(s) Found!</td>
