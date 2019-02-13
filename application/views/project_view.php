@@ -7,46 +7,57 @@
 
 		  <!-- Card image -->
 		  <div class="view view-cascade overlay">
-		    <!--Carousel Wrapper-->
-			<div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel" style="height:300px">
-			  <!--Indicators-->
-			  <ol class="carousel-indicators">
-			    <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
-			    <li data-target="#carousel-example-1z" data-slide-to="1"></li>
-			    <li data-target="#carousel-example-1z" data-slide-to="2"></li>
-			  </ol>
-			  <!--/.Indicators-->
-			  <!--Slides-->
-			  <div class="carousel-inner" role="listbox">
-			    <!--First slide-->
-			    <div class="carousel-item active">
-			      <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(130).jpg" alt="First slide">
-			    </div>
-			    <!--/First slide-->
-			    <!--Second slide-->
-			    <div class="carousel-item">
-			      <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(129).jpg" alt="Second slide">
-			    </div>
-			    <!--/Second slide-->
-			    <!--Third slide-->
-			    <div class="carousel-item">
-			      <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg" alt="Third slide">
-			    </div>
-			    <!--/Third slide-->
-			  </div>
-			  <!--/.Slides-->
-			  <!--Controls-->
-			  <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
-			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			    <span class="sr-only">Previous</span>
-			  </a>
-			  <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
-			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-			    <span class="sr-only">Next</span>
-			  </a>
-			  <!--/.Controls-->
-			</div>
-			<!--/.Carousel Wrapper-->
+<!--Carousel Wrapper-->
+<div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel" style="height:400px">
+  <!--Indicators-->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-2" data-slide-to="1"></li>
+    <li data-target="#carousel-example-2" data-slide-to="2"></li>
+  </ol>
+  <!--/.Indicators-->
+  <!--Slides-->
+  <div class="carousel-inner" role="listbox">
+  	<?php if(count($images)): ?>
+		<?php foreach($images as $image):
+		if($image->is_thumbnail):?>
+	    <div class="carousel-item active">
+	      <div class="view">
+	        <img class="d-block w-100" src="<?php echo base_url('uploads/'.$image->FileName)?>">
+	        <div class="mask rgba-black-light"></div>
+	      </div>
+	      <div class="carousel-caption">
+	        <h3 class="h3-responsive"><?php echo $image->Title?></h3>
+	      </div>
+	    </div>
+	    <?php else: ?>
+	    <div class="carousel-item">
+	      <!--Mask color-->
+	      <div class="view">
+	        <img class="d-block w-100" src="<?php echo base_url('uploads/'.$image->FileName)?>">
+	        <div class="mask rgba-black-light"></div>
+	      </div>
+	      <div class="carousel-caption">
+	        <h3 class="h3-responsive"><?php echo $image->Title?></h3>
+	      </div>
+	    </div>
+	    <?php endif; ?>
+		<?php endforeach; ?>
+	<?php endif; ?>
+  </div>
+  <!--/.Slides-->
+  <!--Controls-->
+  <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+  <!--/.Controls-->
+</div>
+<!--/.Carousel Wrapper-->
 		  </div>
 
 		  <!-- Card content -->
@@ -122,6 +133,7 @@
 		    	{
 					echo anchor("Project/ChangeStatus/{$project->ProjectID}/1","<i class='fas fa-check'></i> Submit",["class"=>"btn btn-info btn-sm","onclick" => "return confirm('Are you sure you want to submit this project? Project cannot be editted once submitted.')"]);
 					echo anchor("Project/edit/{$project->ProjectID}","<i class='fas fa-pencil-alt'></i> Edit",["class"=>"btn btn-warning btn-sm"]);
+					echo anchor("Project/images/{$project->ProjectID}","<i class='fas fa-file-image'></i> Images",["class"=>"btn btn-unique btn-sm"]);
 					echo anchor("Project/delete/{$project->ProjectID}","<i class='fas fa-trash mr-1'></i>Delete",["class"=>"btn btn-danger btn-sm","onclick" => "return confirm('Are you sure you want delete?')"]);
 				}
 		    } ?>

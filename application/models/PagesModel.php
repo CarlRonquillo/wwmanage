@@ -86,6 +86,11 @@
 			return $this->db->update($tableName, $data);
 		}
 
+		public function delete($tableName,$where)
+		{
+			return $this->db->delete($tableName,$where);
+		}
+
 	}
 
 ?>

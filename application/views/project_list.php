@@ -23,6 +23,7 @@
 				    <thead>
 				      <tr>
 				        <th scope="col" class="font-weight-bold dark-grey-text">#</th>
+				        <th scope="col" class="font-weight-bold dark-grey-text"></th>
 				        <th scope="col" class="font-weight-bold dark-grey-text">Project Name</th>
 				        <th scope="col" class="font-weight-bold dark-grey-text">Short Description</th>
 				        <th scope="col" class="font-weight-bold dark-grey-text">Arrival City</th>
@@ -39,6 +40,7 @@
 				    	<?php foreach($projects as $project) { $StatusColor ='text-dark';?>
 					      <tr class="text-danger">
 					        <td scope="row"><?php echo $i += 1; ?></td>
+					        <td scope="row"><img src="<?php echo base_url('uploads/'.$project->FileName)?>" alt="thumbnail" class="img-thumbnail" style="width: 150px"></td>
 					        <td class="text-truncate" style="max-width: 200px;"><?php echo anchor("project/view/{$project->ProjectID}",$project->ProjectName,["class"=>"text-info"]); ?></td>
 					        <td class="text-truncate" style="max-width: 250px;" ><?php echo $project->Description?></td>
 					        <td><?php echo $project->ArrivalCity ?></td>

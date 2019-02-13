@@ -3,6 +3,56 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Project extends CI_Controller {
 
+	public function do_upload($id)
+    {
+        $config['upload_path']          = './uploads/';
+        $config['allowed_types']        = 'gif|jpg|png';
+        $config['max_size']             = 12288;
+        $config['file_name']			= $id.'-'.date('Ymdhis');
+        //$config['max_width']            = 1024;
+        //$config['max_height']           = 768;
+
+        $this->form_validation->set_rules('Title','Title','required|max_length[50]');
+        $this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
+
+        if ($this->form_validation->run())
+        {
+	        $this->load->library('upload', $config);
+
+	        if ($this->upload->do_upload('userfile'))
+	        {
+	    		//$data['upload_data'] = $this->upload->data();
+
+	            $image = $this->input->post();
+	        	$image['FKProjectID'] = $id;
+		        $image['FKCreatedByID'] = $this->session->userdata('PersonID');
+		        $image['FileName'] = $this->upload->data('file_name');
+				$this->load->model('PagesModel');
+				$this->PagesModel->saveRecord($image,'media');
+
+				$this->session->set_flashdata('response','Image successfully saved.');
+
+	            //$data['id'] = $id;
+	         	//$data['error'] = "Image uploaded successfully!";
+	        }
+	        else
+	        {
+				$this->session->set_flashdata('response',$this->upload->display_errors());
+	        }
+        }
+
+        return redirect("Project/images/{$id}");
+    }
+
+    public function images($id)
+    {
+    	$this->load->model('ProjectModel');
+    	$data['images'] = $this->ProjectModel->viewProjectImages($id);
+    	$data['ProjectName'] = $this->ProjectModel->getProjectName($id);
+
+    	$this->load->view('project_image',$data);
+    }
+
 	public function new()
 	{
 		$this->load->model('PagesModel');
@@ -33,6 +83,7 @@ class Project extends CI_Controller {
 	public function view($id)
 	{	
 		$this->load->model('ProjectModel');
+		$data['images'] = $this->ProjectModel->viewProjectImages($id);
 		$data['project'] = $this->ProjectModel->viewProject($id);
 		$this->load->view('project_view',$data);
 	}
@@ -56,6 +107,7 @@ class Project extends CI_Controller {
 		$data['Categories'] = $this->PagesModel->getCategory();
 		$data['Coordinators'] = $this->PagesModel->getCoordinators();
 		$data['Districts'] = $this->PagesModel->getRecords('districts');
+		$error ="";
 		$this->load->view('project_edit',$data);
 	}
 
@@ -177,6 +229,20 @@ class Project extends CI_Controller {
 		$this->load->model('ProjectModel');
 		$this->ProjectModel->ChangeStatus($id,$status);
 		return redirect("Project/view/{$id}");
+	}
+
+	public function setThumbnail($mediaID,$ProjectID)
+	{
+		$this->load->model('ProjectModel');
+		$this->ProjectModel->ChangeThumbnail($mediaID,$ProjectID);
+		return redirect("Project/images/{$ProjectID}");
+	}
+
+	public function deleteImage($mediaID,$ProjectID)
+	{
+		$this->load->model('PagesModel');
+		$this->PagesModel->delete('media',array('MediaID' => $mediaID));
+		return redirect("Project/images/{$ProjectID}");
 	}
 
 	public function SaveCoordinator($ProjectID)
