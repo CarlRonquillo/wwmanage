@@ -20,7 +20,7 @@
 			$data = array('is_thumbnail' => 0);
 			$this->db->where('is_thumbnail', 1);
 			$this->db->where('FKProjectID', $ProjectID);
-			$this->db->update('Media', $data);f
+			$this->db->update('Media', $data);
 
 			$data = array('is_thumbnail' => 1);
 			$this->db->where('MediaID', $mediaID);
