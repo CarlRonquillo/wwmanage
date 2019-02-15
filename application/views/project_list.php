@@ -31,46 +31,45 @@
 				        <th scope="col" class="font-weight-bold dark-grey-text">Req Funds</th>
 				        <th scope="col" class="font-weight-bold dark-grey-text">Created Date</th>
 				        <th scope="col" class="font-weight-bold dark-grey-text">Exp Date</th>
-				        <th scope="col" class="font-weight-bold dark-grey-text">Status</th>
 				      </tr>
 				    </thead>
 				    <tbody>
 				    <?php $i = 0;
 				    	if(count($projects)):  ?>
 				    	<?php foreach($projects as $project) { $StatusColor ='text-dark';?>
+				    		<?php if($project->Status == 0)
+						    {
+						    	$StatusColor = "badge badge-default";
+						    }
+						    elseif($project->Status == 1)
+						    {
+						    	$StatusColor = "badge badge-secondary";
+						    }
+						    elseif($project->Status == 2)
+						    {
+						    	$StatusColor = "badge badge-warning";
+						    }
+						    elseif($project->Status == 3)
+						    {
+						    	$StatusColor = "badge badge-success";
+						    }
+						    elseif($project->Status == 4)
+						    {
+						    	$StatusColor = "badge badge-danger";
+						    }
+					     ?>
 					      <tr class="text-danger">
 					        <td scope="row"><?php echo $i += 1; ?></td>
-					        <td scope="row"><img src="<?php echo base_url('uploads/'.$project->FileName)?>" alt="thumbnail" class="img-thumbnail" style="width: 150px"></td>
-					        <td class="text-truncate" style="max-width: 200px;"><?php echo anchor("project/view/{$project->ProjectID}",$project->ProjectName,["class"=>"text-info"]); ?></td>
-					        <td class="text-truncate" style="max-width: 250px;" ><?php echo $project->Description?></td>
+					        <td scope="row"><img src="<?php echo base_url('uploads/'.((!isset($project->FileName)) ? 'alt_logo.jpg' : $project->FileName))?>" alt="thumbnail" class="img-thumbnail" style="width: 120px"></td>
+					        <td style="max-width: 200px;"><?php echo anchor("project/view/{$project->ProjectID}",$project->ProjectName,["class"=>"text-info"]); ?><br>
+					        	<i class="<?php echo $StatusColor; ?>"><?php echo  $project->Title ?></i>
+					        </td>
+					        <td class="text-justify" style="max-width: 250px;" ><?php echo substr($project->Description,0,120).((strlen($project->Description) < 120) ? '' : '...') ?></td>
 					        <td><?php echo $project->ArrivalCity ?></td>
 					        <td><?php echo "$".$project->EstimatedCost ?></td>
 					        <td><?php echo "$".$project->RequestedProjectFunds ?></td>
 					        <td><?php echo date("M j, Y", strtotime($project->CreatedDate)) ?></td>
 					        <td><?php echo $project->ExpirationDate ?></td>
-					        <?php if($project->Status == 0)
-						        {
-						        	$StatusColor = "text-default";
-						        }
-						        elseif($project->Status == 1)
-						        {
-						        	$StatusColor = "amber-text";
-						        }
-						        elseif($project->Status == 2)
-						        {
-						        	$StatusColor = "text-warning";
-						        }
-						        elseif($project->Status == 3)
-						        {
-						        	$StatusColor = "text-success";
-						        }
-						        elseif($project->Status == 4)
-						        {
-						        	$StatusColor = "text-danger";
-						        }
-					        		
-					        	?>
-					        <td class="<?php echo $StatusColor; ?>"><?php echo  $project->Title ?></td>
 					      </tr>
 					    <?php } else: ?>
 					    <td>No record(s) Found!</td>

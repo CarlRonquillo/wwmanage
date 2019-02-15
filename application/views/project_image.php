@@ -17,7 +17,8 @@
 
 				<?php echo form_open_multipart('project/do_upload/'.$ProjectName->ProjectID);?>
   				<div class="form-group col-lg-6">
-					<input type="file" name="userfile" size="20" />
+					<input type="file" id="userfile" name="userfile" size="20" /><br><br>
+					<img id="imgPreview" src="<?php echo base_url('uploads/alt_logo.jpg') ?>" class="img-fluid z-depth-1 img-thumbnail" alt="Responsive image" />
 				</div>
 
 				<div class="form-group col-lg-6">
@@ -83,8 +84,8 @@
 		<?php echo anchor("project/setThumbnail/{$image->MediaID}/{$image->FKProjectID}","<i class='far fa-star amber-text'></i>",["class"=>"px-2 fa-lg tw-ic"]); ?>
 	<?php endif; ?>
 
-	<?php echo anchor("project/view/{$ProjectName->ProjectID}","<i class='fas fa-pencil-alt green-text'></i>",["class"=>"px-2 fa-lg tw-ic"]); ?>
-	<?php echo anchor("project/deleteImage/{$image->MediaID}/{$ProjectName->ProjectID}","<i class='fas fa-times red-text'></i>",["class"=>"px-2 fa-lg tw-ic","onclick" => "return confirm('Are you sure you want to DELETE this image?')"]); ?>
+	<?php //echo anchor("project/editImage/{$image->MediaID}/{$image->FKProjectID}/{$image->FileName}","<i class='fas fa-pencil-alt green-text'></i>",["class"=>"px-2 fa-lg tw-ic"]); ?>
+	<?php echo anchor("project/deleteImage/{$image->MediaID}/{$ProjectName->ProjectID}/$image->FileName","<i class='fas fa-times red-text'></i>",["class"=>"px-2 fa-lg tw-ic","onclick" => "return confirm('Are you sure you want to DELETE this image?')"]); ?>
 
   </div>
 
@@ -108,3 +109,21 @@
 </main>
 
 <?php include('footer.php'); ?>
+
+<script>
+	function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('#imgPreview').attr('src', e.target.result);
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+    $("#userfile").change(function(){
+        readURL(this);
+    });
+</script>

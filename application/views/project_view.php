@@ -7,43 +7,73 @@
 
 		  <!-- Card image -->
 		  <div class="view view-cascade overlay">
+
 <!--Carousel Wrapper-->
-<div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel" style="height:400px">
+<?php if(count($images)): ?>
+<div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel" style="max-height:500px">
   <!--Indicators-->
+
   <ol class="carousel-indicators">
-    <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel-example-2" data-slide-to="1"></li>
-    <li data-target="#carousel-example-2" data-slide-to="2"></li>
+  	<?php foreach($images as $image):
+  		if($image->is_thumbnail):?>
+    		<li data-target="#carousel-example-2" data-slide-to="<?php echo $image->MediaID; ?>" class="active"></li>
+    	<?php else: ?>
+    		<li data-target="#carousel-example-2" data-slide-to="<?php echo $image->MediaID; ?>"></li>
+    	<?php endif; ?>
+		<?php endforeach; ?>
   </ol>
   <!--/.Indicators-->
   <!--Slides-->
-  <div class="carousel-inner" role="listbox">
-  	<?php if(count($images)): ?>
-		<?php foreach($images as $image):
+  <div class="carousel-inner d-flex justify-content-center" role="listbox">
+  	<?php foreach($images as $image):
 		if($image->is_thumbnail):?>
-	    <div class="carousel-item active">
+
+			 <!--Modal: Name-->
+    <div class="modal fade" id="modal<?php echo $image->MediaID ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document" >
+
+        <!--Content-->
+        <div class="modal-content">
+
+          <!--Body-->
+          <div class="modal-body mb-0 p-0">
+
+            <div class="embed-responsive z-depth-1-half text-center">
+             <img src="<?php echo base_url('uploads/'.$image->FileName)?>" class="img-fluid z-depth-1 img-thumbnail" alt="Responsive image">
+            </div>
+
+          </div>
+
+        </div>
+        <!--/.Content-->
+
+      </div>
+    </div>
+    <!--Modal: Name-->
+
+
+	    <div class="carousel-item active" style="max-height:500px">
 	      <div class="view">
-	        <img class="d-block w-100" src="<?php echo base_url('uploads/'.$image->FileName)?>">
-	        <div class="mask rgba-black-light"></div>
+	        <img class="d-block w-100" src="<?php echo base_url('uploads/'.$image->FileName)?>" >
+	        <div class="mask flex-center waves-effect rgba-black-light"></div>
 	      </div>
 	      <div class="carousel-caption">
-	        <h3 class="h3-responsive"><?php echo $image->Title?></h3>
-	      </div>
+        	<h3 class="h3-responsive"><?php echo $image->Title?></h3>
+      	  </div>
 	    </div>
 	    <?php else: ?>
-	    <div class="carousel-item">
+	    <div class="carousel-item" style="max-height:500px">
 	      <!--Mask color-->
 	      <div class="view">
 	        <img class="d-block w-100" src="<?php echo base_url('uploads/'.$image->FileName)?>">
-	        <div class="mask rgba-black-light"></div>
+	        <div class="mask flex-center waves-effect rgba-black-light"></div>
 	      </div>
 	      <div class="carousel-caption">
-	        <h3 class="h3-responsive"><?php echo $image->Title?></h3>
-	      </div>
+        	<h3 class="h3-responsive"><?php echo $image->Title?></h3>
+      	  </div>
 	    </div>
 	    <?php endif; ?>
 		<?php endforeach; ?>
-	<?php endif; ?>
   </div>
   <!--/.Slides-->
   <!--Controls-->
@@ -57,6 +87,7 @@
   </a>
   <!--/.Controls-->
 </div>
+<?php endif; ?>
 <!--/.Carousel Wrapper-->
 		  </div>
 

@@ -111,6 +111,15 @@
 			}
 		}
 
+		public function viewImage($mediaID)
+		{
+			$query = $this->db->get_where('media',array('MediaID' => $mediaID));
+			if($query->num_rows() > 0)
+			{
+				return $query->row();
+			}
+		}
+
 	}
 
 ?>

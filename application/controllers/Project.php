@@ -44,6 +44,43 @@ class Project extends CI_Controller {
         return redirect("Project/images/{$id}");
     }
 
+    public function updateImage($mediaID,$ProjectID,$mediaFileName)
+    {
+    	$config['upload_path']          = './uploads/';
+        $config['allowed_types']        = 'gif|jpg|png';
+        $config['max_size']             = 12288;
+        $config['file_name']			= $id.'-'.date('Ymdhis');
+        //$config['max_width']            = 1024;
+        //$config['max_height']           = 768;
+
+        $this->form_validation->set_rules('Title','Title','required|max_length[50]');
+        $this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
+
+        if ($this->form_validation->run())
+        {
+        	unlink("uploads/".$mediaFileName);
+	        $this->load->library('upload', $config);
+
+	        if ($this->upload->do_upload('userfile'))
+	        {
+	            $image = $this->input->post();
+	        	$image['FKProjectID'] = $id;
+		        $image['FKCreatedByID'] = $this->session->userdata('PersonID');
+		        $image['FileName'] = $this->upload->data('file_name');
+				$this->load->model('PagesModel');
+				$this->PagesModel->update($image,'media',array('MediaID' => $mediaID));
+
+				$this->session->set_flashdata('response','Image successfully updated.');
+	        }
+	        else
+	        {
+				$this->session->set_flashdata('response',$this->upload->display_errors());
+	        }
+        }
+
+        return redirect("Project/images/{$ProjectID}");
+    }
+
     public function images($id)
     {
     	$this->load->model('ProjectModel');
@@ -238,10 +275,18 @@ class Project extends CI_Controller {
 		return redirect("Project/images/{$ProjectID}");
 	}
 
-	public function deleteImage($mediaID,$ProjectID)
+	public function deleteImage($mediaID,$ProjectID,$mediaFileName)
 	{
 		$this->load->model('PagesModel');
-		$this->PagesModel->delete('media',array('MediaID' => $mediaID));
+		if($this->PagesModel->delete('media',array('MediaID' => $mediaID)))
+		{
+			unlink("uploads/".$mediaFileName);
+			$this->session->set_flashdata('response','Image successfully deleted.');
+		}
+		else
+		{
+			$this->session->set_flashdata('response','Image failed to be deleted.');
+		}
 		return redirect("Project/images/{$ProjectID}");
 	}
 
@@ -251,6 +296,13 @@ class Project extends CI_Controller {
 		$CoordinatorID = $_POST['FKSiteCoordinatorID'];
 		$this->ProjectModel->UpdateCoordinator($ProjectID,$CoordinatorID);
 		return redirect("Project/view/{$ProjectID}");
+	}
+
+	public function editImage($mediaID)
+	{
+		$this->load->model('ProjectModel');
+		$data['image'] = $this->ProjectModel->viewImage($mediaID);
+		$this->load->view('project_image_edit',$data);
 	}
 
 }
