@@ -20,12 +20,12 @@
 			$data = array('is_thumbnail' => 0);
 			$this->db->where('is_thumbnail', 1);
 			$this->db->where('FKProjectID', $ProjectID);
-			$this->db->update('media', $data);
+			$this->db->update('Media', $data);
 
 			$data = array('is_thumbnail' => 1);
 			$this->db->where('MediaID', $mediaID);
 			$this->db->where('FKProjectID', $ProjectID);
-			return $this->db->update('media', $data);
+			return $this->db->update('Media', $data);
 		}
 
 		public function UpdateCoordinator($projectID,$coordinatorID)
@@ -37,9 +37,9 @@
 
 		public function getProjectsByUser($UserID)
 		{
-			$this->db->select('projects.*,Person.PersonID,project_status.Title,media.FileName');
+			$this->db->select('projects.*,Person.PersonID,project_status.Title,Media.FileName');
 			$this->db->from('projects');
-			$this->db->join('media', 'media.FKProjectID = projects.ProjectID AND media.is_thumbnail = 1','left');
+			$this->db->join('Media', 'media.FKProjectID = projects.ProjectID AND Media.is_thumbnail = 1','left');
 			$this->db->join('Person', 'Person.PersonID = projects.FKCreatedByID','left');
 			$this->db->join('project_status', 'project_status.Code = projects.Status','left');
 			$this->db->order_by('projects.ProjectName', 'ASC');
@@ -104,7 +104,7 @@
 
 		public function viewProjectImages($ProjectID)
 		{
-			$query = $this->db->get_where('media',array('FKProjectID' => $ProjectID));
+			$query = $this->db->get_where('Media',array('FKProjectID' => $ProjectID));
 			if($query->num_rows() > 0)
 			{
 				return $query->result();
@@ -113,7 +113,7 @@
 
 		public function viewImage($mediaID)
 		{
-			$query = $this->db->get_where('media',array('MediaID' => $mediaID));
+			$query = $this->db->get_where('Media',array('MediaID' => $mediaID));
 			if($query->num_rows() > 0)
 			{
 				return $query->row();

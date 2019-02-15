@@ -28,7 +28,7 @@ class Project extends CI_Controller {
 		        $image['FKCreatedByID'] = $this->session->userdata('PersonID');
 		        $image['FileName'] = $this->upload->data('file_name');
 				$this->load->model('PagesModel');
-				$this->PagesModel->saveRecord($image,'media');
+				$this->PagesModel->saveRecord($image,'Media');
 
 				$this->session->set_flashdata('response','Image successfully saved.');
 
@@ -68,7 +68,7 @@ class Project extends CI_Controller {
 		        $image['FKCreatedByID'] = $this->session->userdata('PersonID');
 		        $image['FileName'] = $this->upload->data('file_name');
 				$this->load->model('PagesModel');
-				$this->PagesModel->update($image,'media',array('MediaID' => $mediaID));
+				$this->PagesModel->update($image,'Media',array('MediaID' => $mediaID));
 
 				$this->session->set_flashdata('response','Image successfully updated.');
 	        }
@@ -278,7 +278,7 @@ class Project extends CI_Controller {
 	public function deleteImage($mediaID,$ProjectID,$mediaFileName)
 	{
 		$this->load->model('PagesModel');
-		if($this->PagesModel->delete('media',array('MediaID' => $mediaID)))
+		if($this->PagesModel->delete('Media',array('MediaID' => $mediaID)))
 		{
 			unlink("uploads/".$mediaFileName);
 			$this->session->set_flashdata('response','Image successfully deleted.');
