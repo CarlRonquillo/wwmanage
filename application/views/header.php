@@ -51,9 +51,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-group" aria-hidden="true"></i> Teams<i class="fa fa-angle-down rotate-icon"></i></a>
                         <div class="collapsible-body">
                             <ul>
-                                <li><a href="../profile/basic-1.html" class="waves-effect">View Teams</a>
+                                <li><?php echo anchor("Teams/list","Teams List",["class" => "waves-effect"]); ?>
                                 </li>
-                                <li><a href="../profile/basic-2.html" class="waves-effect">Register a Team</a>
+                                <li><?php echo anchor("Teams/new","Register Team",["class" => "waves-effect"]); ?>
                                 </li>
                             </ul>
                         </div>

@@ -136,6 +136,9 @@ class Project extends CI_Controller {
 
 	public function edit($id)
 	{	
+		$this->load->model('ProjectModel');
+		$data['projectCategories'] = $this->ProjectModel->getProjectCategories($id);
+		
 		$this->load->model('PagesModel');
 		$data['project'] = $this->PagesModel->viewRecord('projects','ProjectID',$id);
 		$data['Regions'] = $this->PagesModel->getRegions();
@@ -185,14 +188,13 @@ class Project extends CI_Controller {
 		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
 		$this->load->model('PagesModel');
 
-		if(!isset($data['YouthTeamsAccepted']))
-		{
-			$data['YouthTeamsAccepted'] = 0;
-		}
-
 		if ($this->form_validation->run())
         {
         	$data = $this->input->post();
+        	if(!isset($data['YouthTeamsAccepted']))
+			{
+				$data['YouthTeamsAccepted'] = 0;
+			}
 	        unset($data['FKCategoryID']);
 	        $data['ModifiedDate'] = date('Y-m-d H:i:s');
 

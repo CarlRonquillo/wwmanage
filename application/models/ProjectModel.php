@@ -102,6 +102,18 @@
 			}
 		}
 
+		public function getProjectCategories($ProjectID)
+		{
+			$this->db->select("category.*,mmprojectcategory.FKCategoryID");
+			$this->db->from('category');
+			$this->db->join('mmprojectcategory', 'mmprojectcategory.FKCategoryID = category.CategoryID AND mmprojectcategory.FKProjectID = '.$ProjectID,'left');
+			$query = $this->db->get();
+			if($query->num_rows() > 0)
+			{
+				return $query->result();
+			}
+		}
+
 		public function viewProjectImages($ProjectID)
 		{
 			$query = $this->db->get_where('Media',array('FKProjectID' => $ProjectID));

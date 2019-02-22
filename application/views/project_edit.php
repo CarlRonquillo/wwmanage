@@ -144,9 +144,9 @@
 
 				<br><h4 class="text-warning">Project Categories <i class="text-warning">*</i></h4><hr>
 
-				<?php foreach($Categories as $cat) { ?>
+				<?php foreach($projectCategories as $cat) { ?>
 					<div class='custom-control custom-checkbox'>
-						<?php echo form_checkbox(['name' => '','value' => $cat->CategoryID, 'checked' => FALSE, 'id' => $cat->Category, 'class' => 'custom-control-input','name' => 'FKCategoryID[]']); ?>
+						<?php echo form_checkbox(['name' => '','value' => $cat->CategoryID, 'checked' => ((isset($cat->FKCategoryID)) ? TRUE: FALSE), 'id' => $cat->Category, 'class' => 'custom-control-input','name' => 'FKCategoryID[]']); ?>
 						<label for="<?php echo $cat->Category; ?>" class="custom-control-label"><?php echo $cat->Category; ?></label>
 					</div>
 				<?php } ?>
