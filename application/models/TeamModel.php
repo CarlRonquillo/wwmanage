@@ -7,7 +7,7 @@
 			$this->db->from('teams');
 			$this->db->join('projects', 'projects.ProjectID = teams.FKProjectID','left');
 			$this->db->join('Person', 'Person.FKTeamID = teams.TeamID','left');
-			$this->db->group_by('Person.FKTeamID'); 
+			$this->db->group_by('teams.TeamID'); 
 			$this->db->order_by('teams.TeamName', 'DESC');
 			$query = $this->db->get();
 
