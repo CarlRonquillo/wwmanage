@@ -35,7 +35,7 @@
 				    </thead>
 				    <tbody>
 				    <?php $i = 0;
-				    	if(count($projects)):  ?>
+				    	if(isset($projects)):  ?>
 				    	<?php foreach($projects as $project) { $StatusColor ='text-dark';?>
 				    		<?php if($project->Status == 0)
 						    {

@@ -9,7 +9,7 @@
 		  <div class="view view-cascade overlay">
 
 <!--Carousel Wrapper-->
-<?php if(count($images)): ?>
+<?php if(isset($images)): ?>
 <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel" style="max-height:500px">
   <!--Indicators-->
 

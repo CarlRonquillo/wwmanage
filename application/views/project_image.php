@@ -35,7 +35,7 @@
 
 				<!-- Grid row -->
 <div class="row">
-	<?php if(count($images)): ?>
+	<?php if(isset($images)): ?>
 		<?php foreach($images as $image):?>
   <!-- Grid column -->
   <div class="col-lg-4 col-md-12 mb-4">

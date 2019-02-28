@@ -32,7 +32,7 @@
 				    </thead>
 				    <tbody>
 				    <?php $i = 0;
-				    	if(count($Users)): ?>
+				    	if(isset($Users)): ?>
 				    	<?php foreach($Users as $User) { ?>
 					      <tr>
 					        <th scope="row"><?php echo $i += 1; ?></th>

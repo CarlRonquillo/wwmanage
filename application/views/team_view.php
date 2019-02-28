@@ -34,7 +34,7 @@
 						    </thead>
 						    <tbody>
 						    <?php $i = 0;
-						    	if(count($members)):  ?>
+						    	if(isset($members)):  ?>
 						    	<?php foreach($members as $member) {?>
 							      <tr class="text-danger">
 							        <td scope="row"><?php echo $i += 1; ?></td>
