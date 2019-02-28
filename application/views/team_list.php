@@ -31,7 +31,7 @@
 				    </thead>
 				    <tbody>
 				    <?php $i = 0;
-				    	if($teams->count()):  ?>
+				    	if(count($teams)):  ?>
 				    	<?php foreach($teams as $team) {?>
 					      <tr class="text-danger">
 					        <td scope="row"><?php echo $i += 1; ?></td>
