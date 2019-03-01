@@ -44,6 +44,27 @@
 				return $query->row();
 			}
 		}
+
+		public function updateCurrentProject($data,$teamID)
+		{
+			$this->db->where(array('TeamID' => $teamID));
+			return $this->db->update('teams', $data);
+		}
+
+		public function getMembers()
+		{
+			$this->db->select('Person.GivenName,Person.PersonID,Person.FamilyName');
+			$this->db->from('Person');
+			$this->db->order_by('Person.GivenName', 'DESC');
+			$this->db->where("Person.Deleted",0);
+			$this->db->where("Person.Role !=",1);
+			$query = $this->db->get();
+
+			if($query->num_rows() > 0)
+			{
+				return $query->result();
+			}
+		}
 	
 	}
 

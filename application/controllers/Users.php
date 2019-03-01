@@ -135,6 +135,7 @@ class Users extends CI_Controller {
                 return redirect("Users/View/{$id}");
         }
 
+
         public function delete($id)
         {       
                 $this->load->model('PagesModel');
@@ -142,14 +143,14 @@ class Users extends CI_Controller {
                 $data['DateDeleted'] = date('Y-m-d H:i:s');
                 $condition = array('PersonID' => $id);
 
-        if($this->PagesModel->update($data,'Person',$condition))
-        {
-                $this->session->set_flashdata('response','User successfully deleted.');
-        }
-        else
-        {
-                $this->session->set_flashdata('response','User was not deleted.');
-        }
+                if($this->PagesModel->update($data,'Person',$condition))
+                {
+                        $this->session->set_flashdata('response','User successfully deleted.');
+                }
+                else
+                {
+                        $this->session->set_flashdata('response','User was not deleted.');
+                }
 
                 return redirect("Users/list");
         }

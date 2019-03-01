@@ -14,6 +14,8 @@
     <script src="<?php echo base_url("assets/javascripts/bootstrap.js"); ?>"></script>
     <script src="<?php echo base_url("assets/javascripts/mdb.min.js"); ?>"></script>
 
+    <script src="<?php echo base_url("assets/javascripts/autofill.js"); ?>"></script>
+
 
     <script>
         // SideNav Initialization

@@ -102,6 +102,16 @@
 			}
 		}
 
+		public function getProjectNames()
+		{
+			$this->db->select("ProjectName,ProjectID");
+			$query = $this->db->get_where('projects',array('Deleted'=> 0));
+			if($query->num_rows() > 0)
+			{
+				return $query->result();
+			}
+		}
+
 		public function getProjectCategories($ProjectID)
 		{
 			$this->db->select("category.*,mmprojectcategory.FKCategoryID");
