@@ -93,7 +93,7 @@ class Teams extends CI_Controller {
                 $PersonID = trim($arr_searched[1],' ');
 
                 $this->load->model('PagesModel');
-                if($this->PagesModel->update(array("FKTeamID" => $TeamID),'person',array("PersonID" => $PersonID)))
+                if($this->PagesModel->update(array("FKTeamID" => $TeamID),'Person',array("PersonID" => $PersonID)))
                 {
                     $this->session->set_flashdata('response','Team successfully saved.');
                 }
