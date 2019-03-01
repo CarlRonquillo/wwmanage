@@ -109,7 +109,7 @@ class Teams extends CI_Controller {
     public function removeMember($personID,$TeamID)
     {
         $this->load->model('PagesModel');
-        if($this->PagesModel->update(array("FKTeamID" => 0),'person',array("PersonID" => $personID)))
+        if($this->PagesModel->update(array("FKTeamID" => 0),'Person',array("PersonID" => $personID)))
         {
             $this->session->set_flashdata('response','Member successfully removed.');
         }
