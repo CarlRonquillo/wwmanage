@@ -23,14 +23,13 @@
 				    <thead>
 				      <tr>
 				        <th scope="col" class="font-weight-bold dark-grey-text">#</th>
-				        <th scope="col" class="font-weight-bold dark-grey-text"></th>
+				        <!--<th scope="col" class="font-weight-bold dark-grey-text"></th>-->
 				        <th scope="col" class="font-weight-bold dark-grey-text">Project Name</th>
 				        <th scope="col" class="font-weight-bold dark-grey-text">Short Description</th>
-				        <th scope="col" class="font-weight-bold dark-grey-text">Arrival City</th>
-				        <th scope="col" class="font-weight-bold dark-grey-text">Est Cost</th>
-				        <th scope="col" class="font-weight-bold dark-grey-text">Req Funds</th>
-				        <th scope="col" class="font-weight-bold dark-grey-text">Created Date</th>
-				        <th scope="col" class="font-weight-bold dark-grey-text">Exp Date</th>
+				        <th scope="col" class="font-weight-bold dark-grey-text">Country</th>
+				        <th scope="col" class="font-weight-bold dark-grey-text">Field</th>
+				        <th scope="col" class="font-weight-bold dark-grey-text">Site-Coordinator</th>
+				        <th scope="col" class="font-weight-bold dark-grey-text">Status</th>
 				      </tr>
 				    </thead>
 				    <tbody>
@@ -60,16 +59,14 @@
 					     ?>
 					      <tr class="text-danger">
 					        <td scope="row"><?php echo $i += 1; ?></td>
-					        <td scope="row"><img src="<?php echo base_url('uploads/'.((!isset($project->FileName)) ? 'alt_logo.jpg' : $project->FileName))?>" alt="thumbnail" class="img-thumbnail" style="width: 120px"></td>
-					        <td style="max-width: 200px;"><?php echo anchor("project/view/{$project->ProjectID}",$project->ProjectName,["class"=>"text-info"]); ?><br>
-					        	<i class="<?php echo $StatusColor; ?>"><?php echo  $project->Title ?></i>
+					        <!--<td scope="row"><img src="<?php echo base_url('uploads/'.((!isset($project->FileName)) ? 'alt_logo.jpg' : $project->FileName))?>" alt="thumbnail" class="img-thumbnail" style="width: 120px"></td>-->
+					        <td style="max-width: 200px;"><?php echo anchor("project/view/{$project->ProjectID}",$project->ProjectName,["class"=>"text-info"]); ?>
 					        </td>
 					        <td class="text-justify" style="max-width: 250px;" ><?php echo substr($project->Description,0,120).((strlen($project->Description) < 120) ? '' : '...') ?></td>
-					        <td><?php echo $project->ArrivalCity ?></td>
-					        <td><?php echo "$".$project->EstimatedCost ?></td>
-					        <td><?php echo "$".$project->RequestedProjectFunds ?></td>
-					        <td><?php echo date("M j, Y", strtotime($project->CreatedDate)) ?></td>
-					        <td><?php echo $project->ExpirationDate ?></td>
+					        <td><?php echo $project->country_name ?></td>
+					        <td><?php echo $project->FieldName ?></td>
+					        <td><?php echo $project->GivenName.' '.$project->FamilyName ?></td>
+					        <td><i class="<?php echo $StatusColor; ?>"><?php echo  $project->Title ?></i></td>
 					      </tr>
 					    <?php } else: ?>
 					    <td>No record(s) Found!</td>
