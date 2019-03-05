@@ -121,7 +121,7 @@
 		    	<p class="card-text"><i>Youth teams are welcome</i></p>
 			<?php } 
 			else { ?>
-				<p class="card-text text-danger"><i>Youth teams are not welcome</i></p>
+				<p class="card-text text-danger"><i>Not appropriate for Youth teams</i></p>
 			<?php } ?>
 		    <br>
 
@@ -160,7 +160,7 @@
 		    }
 		    else
 		    {
-		    	if($this->session->userdata('PersonID') == $project->FKCreatedByID and $project->Status == 0)
+		    	if(($this->session->userdata('PersonID') == $project->FKCreatedByID or $this->session->userdata('Role') == 1) and $project->Status == 0)
 		    	{
 					echo anchor("Project/ChangeStatus/{$project->ProjectID}/1","<i class='fas fa-check'></i> Submit",["class"=>"btn btn-info btn-sm","onclick" => "return confirm('Are you sure you want to submit this project? Project cannot be editted once submitted.')"]);
 					echo anchor("Project/edit/{$project->ProjectID}","<i class='fas fa-pencil-alt'></i> Edit",["class"=>"btn btn-warning btn-sm"]);

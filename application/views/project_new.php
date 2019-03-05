@@ -100,7 +100,7 @@
 				<div class="input-group">
 					<div class="form-group col-lg-6">
 						<label>Country<i class="text-warning">*</i></label>
-						<?php $country_array = array();
+						<?php $country_array = array(0 => "");
 							foreach($Countries as $Country)
                             {
                                 $country_array[$Country->id]=$Country->country_name;

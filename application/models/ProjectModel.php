@@ -11,6 +11,10 @@
 		public function ChangeStatus($id,$status)
 		{
 			$data = array('Status' => $status);
+			if($status == 3)
+			{
+				$data = array('ApprovalDate' => date('Y-m-d H:i:s'), 'ExpirationDate' => Date('y:m:d', strtotime('+1 year 30 days'))) + $data;
+			}
 			$this->db->where('ProjectID', $id);
 			return $this->db->update('projects', $data);
 		}
