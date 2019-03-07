@@ -8,12 +8,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <title>Work & Witness Manage</title>
   <link rel="stylesheet" href="<?php echo base_url("assets/stylesheets/bootstrap.min.css"); ?>"/>
   <link rel="stylesheet" href="<?php echo base_url("assets/stylesheets/mdb.min.css"); ?>">
+  <link rel="stylesheet" href="<?php echo base_url("assets/stylesheets/datatables.min.css"); ?>">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
   
 </head>
 <body class="fixed-sn white-skin">
-        <div id="slide-out" class="side-nav sn-bg-4 fixed">
+        <div id="slide-out" class="side-nav sn-bg-3 fixed">
             <ul class="custom-scrollbar">
             <!-- Logo -->
             <li class="logo-sn waves-effect">

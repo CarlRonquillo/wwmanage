@@ -1,9 +1,8 @@
     <footer class="page-footer pt-0 mt-5 rgba-stylish-light">
 
         <div class="footer-copyright py-3 text-center">
-              <div class="container-fluid">
+            <div class="container-fluid">
                  © 2011 Copyright: <a href="http://www.nazarene.org/" target="_blank"> Church of the Nazarene. All rights reserved. </a>
-
             </div>
         </div>
 
@@ -13,6 +12,7 @@
     <script src="<?php echo base_url("assets/javascripts/popper.min.js"); ?>"></script>
     <script src="<?php echo base_url("assets/javascripts/bootstrap.js"); ?>"></script>
     <script src="<?php echo base_url("assets/javascripts/mdb.min.js"); ?>"></script>
+    <script src="<?php echo base_url("assets/javascripts/datatables.min.js"); ?>"></script>
 
     <script src="<?php echo base_url("assets/javascripts/autofill.js"); ?>"></script>
 

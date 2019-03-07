@@ -17,9 +17,9 @@
 					}
 					endif
 				?>
-	  			<div class="table-responsive text-wrap table-hover table-striped">
+	  			<div class="table-responsive">
 	  			<div class="card-group">
-				  <table class="table">
+				  <table id="tblProjects"  class="table table table-responsive text-wrap table-hover table-striped" cellspacing="0" width="100%">
 				    <thead>
 				      <tr>
 				        <th scope="col" class="font-weight-bold dark-grey-text">#</th>
@@ -60,9 +60,9 @@
 					      <tr class="text-danger">
 					        <td scope="row"><?php echo $i += 1; ?></td>
 					        <!--<td scope="row"><img src="<?php echo base_url('uploads/'.((!isset($project->FileName)) ? 'alt_logo.jpg' : $project->FileName))?>" alt="thumbnail" class="img-thumbnail" style="width: 120px"></td>-->
-					        <td style="max-width: 200px;"><?php echo anchor("project/view/{$project->ProjectID}",$project->ProjectName,["class"=>"text-info"]); ?>
+					        <td style="max-width: 20%;"><?php echo anchor("project/view/{$project->ProjectID}",$project->ProjectName,["class"=>"text-info"]); ?>
 					        </td>
-					        <td class="text-justify" style="max-width: 250px;" ><?php echo substr($project->Description,0,120).((strlen($project->Description) < 120) ? '' : '...') ?></td>
+					        <td class="text-justify" style="max-width: 30%;" ><?php echo substr($project->Description,0,120).((strlen($project->Description) < 120) ? '' : '...') ?></td>
 					        <td><?php echo $project->country_name ?></td>
 					        <td><?php echo $project->FieldName ?></td>
 					        <td><?php echo $project->GivenName.' '.$project->FamilyName ?></td>
@@ -81,3 +81,12 @@
 </main>
 
 <?php include('footer.php'); ?>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#tblProjects').DataTable();
+		$('.dataTables_length').addClass('bs-select');
+	});
+</script>
+
+
