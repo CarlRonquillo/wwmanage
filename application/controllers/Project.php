@@ -122,6 +122,7 @@ class Project extends CI_Controller {
 		$this->load->model('ProjectModel');
 		$data['images'] = $this->ProjectModel->viewProjectImages($id);
 		$data['project'] = $this->ProjectModel->viewProject($id);
+		$data['projectCategories'] = $this->ProjectModel->getProjectCategories($id);
 		$this->load->view('project_view',$data);
 	}
 

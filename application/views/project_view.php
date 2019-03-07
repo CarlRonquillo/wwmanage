@@ -106,8 +106,40 @@
 				endif
 			?>
 		    <h3 class="card-title"><strong><?php echo $project->ProjectName ?></strong></h3>
-		    <h6><i>(<?php echo $project->Title ?>)</i></h6>
-		    <h6 class="font-weight-bold text-warning">Compassionate Ministries • Construction • Evangelism</h6>
+				<?php $StatusColor ='text-dark'; 
+				if($project->Status == 0)
+				{
+					$StatusColor = "badge badge-default";
+				}
+				elseif($project->Status == 1)
+				{
+					$StatusColor = "badge badge-secondary";
+				}
+				elseif($project->Status == 2)
+				{
+					$StatusColor = "badge badge-warning";
+				}
+				elseif($project->Status == 3)
+				{
+					$StatusColor = "badge badge-success";
+				}
+				elseif($project->Status == 4)
+				{
+					$StatusColor = "badge badge-danger";
+				} ?>
+		    <h6 class="<?php echo $StatusColor ?>"><i>(<?php echo $project->Title ?>)</i></h6>
+		    <h6 class="font-weight-bold text-warning">
+		    	<?php $cats = '';
+		    	foreach($projectCategories as $category)
+               	{
+                    if(isset($category->FKCategoryID))
+                    {
+                        $cats .= $category->Category." • ";
+                    }
+                }
+                echo rtrim($cats," • ");
+                ?>
+			</h6>
 		    <ul class="list-unstyled list-inline font-small">
 		      <li class="list-inline-item pr-2"><i class="fa fa-clock-o pr-1"></i><?php echo date("M j, Y", strtotime($project->CreatedDate))." - ".date("M j, Y", strtotime($project->ExpirationDate)) ?></li>
 		      <li class="list-inline-item pr-2"><abbr title="Arrival City" class="initialism"><i class="fa fa-map-marker pr-1"></i></abbr><?php echo $project->ArrivalCity ?></li>
