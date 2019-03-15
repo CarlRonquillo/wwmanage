@@ -123,6 +123,7 @@ class Project extends CI_Controller {
 		$data['images'] = $this->ProjectModel->viewProjectImages($id);
 		$data['project'] = $this->ProjectModel->viewProject($id);
 		$data['projectCategories'] = $this->ProjectModel->getProjectCategories($id);
+		$data['logs'] = $this->ProjectModel->getProjectLogs($id);
 		$this->load->view('project_view',$data);
 	}
 
@@ -268,6 +269,14 @@ class Project extends CI_Controller {
 	{
 		$this->load->model('ProjectModel');
 		$this->ProjectModel->ChangeStatus($id,$status);
+
+		$this->load->model('PagesModel');
+		$data = $this->input->post();
+		$data['FKCreatedBy'] = $this->session->userdata('PersonID');
+		$data['FKProjectID'] = $id;
+		$data['FKStatusID'] = $status;
+		$this->PagesModel->saveRecord($data,'projectlogs');
+
 		return redirect("Project/view/{$id}");
 	}
 

@@ -154,6 +154,22 @@
 			}
 		}
 
+		public function getProjectLogs($ProjectID)
+		{
+			$this->db->select("projectlogs.*,project_status.Title,CONCAT(Person.GivenName,' ',Person.FamilyName) as CreatedBy");
+			$this->db->from('projectlogs');
+			$this->db->join('projects', 'projects.ProjectID = projectlogs.FKProjectID','left');
+			$this->db->join('Person', 'Person.PersonID = projectlogs.FKCreatedBy','left');
+			$this->db->join('project_status', 'project_status.Code = projectlogs.FKStatusID','left');
+			$this->db->where("projectlogs.FKProjectID",$ProjectID);
+			$this->db->order_by('projectlogs.DateCreated', 'DESC');
+			$query = $this->db->get();
+			if($query->num_rows() > 0)
+			{
+				return $query->result();
+			}
+		}
+
 	}
 
 ?>

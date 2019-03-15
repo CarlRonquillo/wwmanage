@@ -163,6 +163,42 @@
 		    <p class="card-text text-justify"><?php echo $project->Description ?></p>
 		    <br><hr>
 
+		    <!--Accordion wrapper-->
+			<div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+
+			 <!-- Accordion card -->
+			  <div class="card text-justify">
+
+			    <!-- Card header -->
+			    <div class="card-header" role="tab" id="headingTwo2">
+			      <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo2"
+			        aria-expanded="false" aria-controls="collapseTwo2">
+			        <p class="mb-0">
+			          Project Logs
+			        </p>
+			      </a>
+			    </div>
+
+			    <!-- Card body -->
+			    <div id="collapseTwo2" class="collapse" role="tabpanel" aria-labelledby="headingTwo2" data-parent="#accordionEx">
+			      <div class="card-body">
+			        <?php if(isset($logs)):  ?>
+				    	<?php foreach($logs as $log) { ?>
+				    		<p>• <?php echo $log->DateCreated. ' ' .$log->Title. ' by ' .$log->CreatedBy. '. ' .$log->Notes;?></p>
+
+				    	<?php } else: ?>
+				    <?php endif; ?>
+
+
+			      </div>
+			    </div>
+
+			  </div>
+			  <!-- Accordion card -->
+
+			</div>
+			<!-- Accordion wrapper -->
+
 		    <?php if($project->FKSiteCoordinatorID != 0)
 		    {
 		    	echo anchor("","<i class='fa fa-phone mr-1'></i>Contact Coordinator",["class"=>"btn btn-primary btn-sm", "data-toggle"=>"modal", "data-target"=>"#modalLoginAvatar"]);
@@ -178,12 +214,12 @@
 		    		if($this->session->userdata('Role') == 3 and $project->Status == 1)
 		    		{
 						echo anchor(($project->FKSiteCoordinatorID != 0 ? "Project/ChangeStatus/{$project->ProjectID}/2": "Project/coordinator/{$project->ProjectID}"),"<i class='fas fa-thumbs-up'></i> Submit to Region",["class"=>"btn btn-success btn-sm","onclick" => ($project->FKSiteCoordinatorID != 0 ? "return confirm('This project will now proceed for Regional Approval, do you wish you to continue?')" : "return alert('Please assign a SITE COORDINATOR before proceeding to this action.')")]);
-						echo anchor("Project/ChangeStatus/{$project->ProjectID}/4","<i class='fas fa-thumbs-down'></i> Disapprove",["class"=>"btn btn-danger btn-sm","onclick" => "return confirm('Are you sure you want to Approve this Project?')"]);
+						echo anchor("","<i class='fas fa-thumbs-down'></i> Disapprove",["data-toggle" => "modal","data-target" => "#mdlDisapprove","class"=>"btn btn-danger btn-sm"]);
 		    		}
 		    		elseif($this->session->userdata('Role') == 4 and $project->Status == 2)
 		    		{
 		    			echo anchor("Project/ChangeStatus/{$project->ProjectID}/3","<i class='fas fa-thumbs-up'></i> Approve",["class"=>"btn btn-success btn-sm","onclick" => "return confirm('Are you sure you want to Approve this project?')"]);
-		    			echo anchor("Project/ChangeStatus/{$project->ProjectID}/4","<i class='fas fa-thumbs-down'></i> Disapprove",["class"=>"btn btn-danger btn-sm","onclick" => "return confirm('Are you sure you want to Approve this Project?')"]);
+		    			echo anchor("","<i class='fas fa-thumbs-down'></i> Disapprove",["data-toggle" => "modal","data-target" => "#mdlDisapprove","class"=>"btn btn-danger btn-sm"]);
 		    		}
 		    	}
 		    if(($project->Status == 1 or $project->Status == 4) and ($this->session->userdata('PersonID') == $project->FKCreatedByID))
@@ -238,9 +274,37 @@
 			</div>
 			<!--Modal: Login with Avatar Form-->
 
-
 		</div>
   	</div>
 </main>
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="mdlDisapprove" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Disapprove Project</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    	<?php echo form_open("Project/ChangeStatus/{$project->ProjectID}/4",['method' => 'post','id' => 'frm_project']); ?>
+      <div class="modal-body">
+	        <div class="form-group">
+				<label>Please state your reason here:</label>
+				<?php echo form_textarea(['type' => 'text','name' => 'Notes', 'class' => 'form-control','autocomplete' => 'off','rows' => 4]); ?>
+			</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-secondary">DISAPPROVE</button>
+      </div>
+      <?php echo form_close(); ?>
+    </div>
+  </div>
+</div>
 
 <?php include('footer.php'); ?>

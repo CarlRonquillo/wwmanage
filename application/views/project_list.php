@@ -57,7 +57,7 @@
 						    	$StatusColor = "badge badge-danger";
 						    }
 					     ?>
-					      <tr class="text-danger">
+					      <tr class="<?php echo ($project->Active ? '' : 'table-danger' ) ?>">
 					        <td scope="row"><?php echo $i += 1; ?></td>
 					        <!--<td scope="row"><img src="<?php echo base_url('uploads/'.((!isset($project->FileName)) ? 'alt_logo.jpg' : $project->FileName))?>" alt="thumbnail" class="img-thumbnail" style="width: 120px"></td>-->
 					        <td style="max-width: 20%;"><?php echo anchor("project/view/{$project->ProjectID}",$project->ProjectName,["class"=>"text-info"]); ?>
@@ -66,7 +66,7 @@
 					        <td><?php echo $project->country_name ?></td>
 					        <td><?php echo $project->FieldName ?></td>
 					        <td><?php echo $project->GivenName.' '.$project->FamilyName ?></td>
-					        <td><i class="<?php echo $StatusColor; ?>"><?php echo  $project->Title ?></i></td>
+					        <td><i class="<?php echo ($project->Active ? $StatusColor : 'badge badge-danger'); ?>"><?php echo  ($project->Active ? $project->Title : 'Inactive') ?></i></td>
 					      </tr>
 					    <?php } else: ?>
 					    <td>No record(s) Found!</td>
