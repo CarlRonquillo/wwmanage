@@ -77,7 +77,6 @@ class Project extends CI_Controller {
 				$this->session->set_flashdata('response',$this->upload->display_errors());
 	        }
         }
-
         return redirect("Project/images/{$ProjectID}");
     }
 
@@ -92,14 +91,21 @@ class Project extends CI_Controller {
 
 	public function new()
 	{
-		$this->load->model('PagesModel');
-		$data['Regions'] = $this->PagesModel->getRegions();
-		$data['Fields'] = $this->PagesModel->getFields();
-		$data['Districts'] = $this->PagesModel->getRecords('districts');
-		$data['Categories'] = $this->PagesModel->getCategory();
-		$data['Coordinators'] = $this->PagesModel->getCoordinators();
-		$data['Countries'] = $this->PagesModel->getRecords('countries');
-		$this->load->view('project_new',$data);
+		if($this->session->userdata('Role') == 1 or $this->session->userdata('Role') == 2)
+		{
+			$this->load->model('PagesModel');
+			$data['Regions'] = $this->PagesModel->getRegions();
+			$data['Fields'] = $this->PagesModel->getFields();
+			$data['Districts'] = $this->PagesModel->getRecords('districts');
+			$data['Categories'] = $this->PagesModel->getCategory();
+			$data['Coordinators'] = $this->PagesModel->getCoordinators();
+			$data['Countries'] = $this->PagesModel->getRecords('countries');
+			$this->load->view('project_new',$data);
+		}
+		else
+		{
+			$this->load->view('forbidden');
+		}
 	}
 
 	public function list()
@@ -125,6 +131,13 @@ class Project extends CI_Controller {
 		$data['projectCategories'] = $this->ProjectModel->getProjectCategories($id);
 		$data['logs'] = $this->ProjectModel->getProjectLogs($id);
 		$this->load->view('project_view',$data);
+	}
+
+	public function viewFromNotif($projID,$Logid)
+	{	
+		$this->load->model('ProjectModel');
+		$this->ProjectModel->seen($Logid);
+		return redirect("Project/view/{$projID}");
 	}
 
 	public function coordinator($id)
@@ -217,52 +230,58 @@ class Project extends CI_Controller {
 				$this->session->set_flashdata('response','Project was not updated.');
             }
         }
-
         return redirect("Project/view/{$id}");
 	}
 
 	public function save()
 	{
-		$this->form_validation->set_rules('ProjectName','Project Name','required');
-		$this->form_validation->set_rules('VisionObjective','Vision','required');
-		$this->form_validation->set_rules('Description','Description','required');
-		$this->form_validation->set_rules('FKCategoryID[]','Category','required');
-		/*$this->form_validation->set_rules('FKRegionID','Region','required|min_length[1]');
-		$this->form_validation->set_rules('FKFieldID','Field','required|min_length[1]');
-		$this->form_validation->set_rules('FKDistrictID','District','requiredmin_length[1]');
-		$this->form_validation->set_rules('EstimatedCost','Estimated Cost','required|decimal|min_length[1]');
-		$this->form_validation->set_rules('RequestedProjectFunds','Requested Project Funds','required|decimal|min_length[1]');
-		$this->form_validation->set_rules('Country','Country','required|min_length[1]');
-		$this->form_validation->set_rules('IndividualCostPerDay','Individual CostPer Day','decimal|min_length[1]');
-		$this->form_validation->set_rules('City','City','required');
-		$this->form_validation->set_rules('FKSiteCoordinatorID','Coordinator','required|min_length[1]');*/
-		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
-		$this->load->model('PagesModel');
+		if($this->session->userdata('Role') == 1 or $this->session->userdata('Role') == 2)
+		{
+			$this->form_validation->set_rules('ProjectName','Project Name','required');
+			$this->form_validation->set_rules('VisionObjective','Vision','required');
+			$this->form_validation->set_rules('Description','Description','required');
+			$this->form_validation->set_rules('FKCategoryID[]','Category','required');
+			/*$this->form_validation->set_rules('FKRegionID','Region','required|min_length[1]');
+			$this->form_validation->set_rules('FKFieldID','Field','required|min_length[1]');
+			$this->form_validation->set_rules('FKDistrictID','District','requiredmin_length[1]');
+			$this->form_validation->set_rules('EstimatedCost','Estimated Cost','required|decimal|min_length[1]');
+			$this->form_validation->set_rules('RequestedProjectFunds','Requested Project Funds','required|decimal|min_length[1]');
+			$this->form_validation->set_rules('Country','Country','required|min_length[1]');
+			$this->form_validation->set_rules('IndividualCostPerDay','Individual CostPer Day','decimal|min_length[1]');
+			$this->form_validation->set_rules('City','City','required');
+			$this->form_validation->set_rules('FKSiteCoordinatorID','Coordinator','required|min_length[1]');*/
+			$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
+			$this->load->model('PagesModel');
 
-		if ($this->form_validation->run())
-        {
-        	$data = $this->input->post();
-	        unset($data['FKCategoryID']);
-	        $data['FKCreatedByID'] = $this->session->userdata('PersonID');
+			if ($this->form_validation->run())
+	        {
+	        	$data = $this->input->post();
+		        unset($data['FKCategoryID']);
+		        $data['FKCreatedByID'] = $this->session->userdata('PersonID');
 
-        	if($this->PagesModel->saveRecord($data,'projects'))
-            {
-            	$categories['FKProjectID'] = $this->db->insert_id();
-            	foreach ($_POST['FKCategoryID'] as $cat)
-            	{
-            		$categories['FKCategoryID'] = $cat;
-            		$this->PagesModel->saveRecord($categories,'mmprojectcategory');
-            	}
+	        	if($this->PagesModel->saveRecord($data,'projects'))
+	            {
+	            	$categories['FKProjectID'] = $this->db->insert_id();
+	            	foreach ($_POST['FKCategoryID'] as $cat)
+	            	{
+	            		$categories['FKCategoryID'] = $cat;
+	            		$this->PagesModel->saveRecord($categories,'mmprojectcategory');
+	            	}
 
-                $this->session->set_flashdata('response','Project successfully saved.');
-            }
-            else
-            {
-				$this->session->set_flashdata('response','Project was not saved.');
-            }
-        }
+	                $this->session->set_flashdata('response','Project successfully saved.');
+	            }
+	            else
+	            {
+					$this->session->set_flashdata('response','Project was not saved.');
+	            }
+	        }
 
-		return redirect("Project/new/{$categoryList}");
+			return redirect("Project/new/{$categoryList}");
+		}
+		else
+		{
+			$this->load->view('forbidden');
+		}
 	}
 
 	public function ChangeStatus($id,$status)
@@ -315,6 +334,44 @@ class Project extends CI_Controller {
 		$this->load->model('ProjectModel');
 		$data['image'] = $this->ProjectModel->viewImage($mediaID);
 		$this->load->view('project_image_edit',$data);
+	}
+
+	public function showNotifications()
+	{	
+		$this->load->model('ProjectModel');
+		$projects = $this->ProjectModel->getProjectsByUser($this->session->userdata('PersonID'));
+		$arrayProjectIDs = array();
+			foreach($projects as $project)
+            {
+               array_push($arrayProjectIDs,$project->ProjectID);
+            }
+		$projects = $this->ProjectModel->getProjectLogsByUser($arrayProjectIDs);
+		$index = 0;
+		foreach($projects as $project)
+        {
+        	$ArrayTimeDate = [];
+        	$ArrayTimeDate = explode(' ', $this->elapsed_time($project['elapsedTime']), 3);
+        	$timeDate = $ArrayTimeDate[0] . ' ' . $ArrayTimeDate[1];
+        	$projects[$index]['timedate'] = $timeDate;
+        	$index++;
+            //$data['projects'] = array_merge($data['projects'],array('timedate' => $this->elapsed_time($project->elapsedTime)));
+        }
+		echo json_encode($projects);
+	}
+
+	public function elapsed_time($timestamp, $precision = 2) {
+		$time = time() - $timestamp;
+		$a = array('dec' => 315576000, 'year' => 31557600, 'mon' => 2629800, 'week' => 604800, 'day' => 86400, 'hr' => 3600, 'min' => 60, 'sec' => 1);
+		$i = 0;
+		foreach($a as $k => $v) {
+			$$k = floor($time/$v);
+				if ($$k) $i++;
+				$time = $i >= $precision ? 0 : $time - $$k * $v;
+				$s = $$k > 1 ? 's' : '';
+				$$k = $$k ? $$k.' '.$k.$s.' ' : '';
+				@$result .= $$k;
+			}
+		return $result ? $result.'ago' : '1 sec to go';
 	}
 
 }

@@ -140,15 +140,6 @@
                 echo rtrim($cats," • ");
                 ?>
 			</h6>
-		    <ul class="list-unstyled list-inline font-small">
-		      <li class="list-inline-item pr-2"><i class="fa fa-clock-o pr-1"></i><?php echo date("M j, Y", strtotime($project->CreatedDate))." - ".date("M j, Y", strtotime($project->ExpirationDate)) ?></li>
-		      <li class="list-inline-item pr-2"><abbr title="Arrival City" class="initialism"><i class="fa fa-map-marker pr-1"></i></abbr><?php echo $project->ArrivalCity ?></li>
-		      <li class="list-inline-item pr-2"><abbr title="Site Coordinator" class="initialism"><i class="fas fa-user-tie pr-1"></i></abbr><?php echo $project->SiteCoordinator ?></li>
-		      <li class="list-inline-item pr-2">|</li>
-		      <li class="list-inline-item"><b><abbr title="Estimated Cost" class="initialism">EC </abbr></b><?php echo "$".$project->EstimatedCost ?></li>
-		      <li class="list-inline-item"><b><abbr title="Requested Fund" class="initialism">RF </abbr></b><?php echo "$".$project->RequestedProjectFunds ?></li>
-		      <li class="list-inline-item"><b><abbr title="Individual Cost Per Day" class="initialism">ICD </abbr></b><?php echo "$".$project->IndividualCostPerDay ?></li>
-		    </ul>
 		    <?php if($project->YouthTeamsAccepted == '1'){ ?>
 		    	<p class="card-text"><i>Youth teams are welcome</i></p>
 			<?php } 
@@ -158,10 +149,121 @@
 		    <br>
 
 		    <h6 class="font-weight-bold indigo-text ">Vision</h6>
-		    <p class="card-text text-justify"><?php echo $project->VisionObjective ?></p>
+		    <p class="text-justify"><?php echo $project->VisionObjective ?></p>
 		    <h6 class="font-weight-bold indigo-text">Description</h6>
-		    <p class="card-text text-justify"><?php echo $project->Description ?></p>
-		    <br><hr>
+		    <p class="text-justify"><?php echo $project->Description ?></p>
+		    <br>
+
+			<div class="container">
+			  <div class="row">
+			    <div class="col-sm">
+			      <h6 class="font-weight-bold indigo-text ">Project Details</h6>
+			      <div class="row">
+			        <div class="col-8 col-sm-6">
+			          	<div class="row">
+					        <div class="col-8 col-sm-6 text-right">
+					          <b><p class="list-inline-item pr-2">Created:</p></b>
+					        </div>
+					        <div class="col-4 col-sm-6 text-left">
+					          <?php echo date("M j, Y", strtotime($project->CreatedDate)); ?>
+					        </div>
+			      		</div>
+			      		<div class="row">
+					        <div class="col-8 col-sm-6 text-right">
+					          <b><p class="list-inline-item pr-2">Expiration:</p></b>
+					        </div>
+					        <div class="col-4 col-sm-6 text-left">
+					          <?php echo date("M j, Y", strtotime($project->ExpirationDate)); ?>
+					        </div>
+			      		</div>
+			      		<div class="row">
+					        <div class="col-8 col-sm-6 text-right">
+					          <b><p class="list-inline-item pr-2">Region:</p></b>
+					        </div>
+					        <div class="col-4 col-sm-6 text-left">
+					          <?php echo $project->RegionName; ?>
+					        </div>
+			      		</div>
+			      		<div class="row">
+					        <div class="col-8 col-sm-6 text-right">
+					          <b><p class="list-inline-item pr-2">Field/World Area:</p></b>
+					        </div>
+					        <div class="col-4 col-sm-6 text-left">
+					          <?php echo $project->FieldName; ?>
+					        </div>
+			      		</div>
+			      		<div class="row">
+					        <div class="col-8 col-sm-6 text-right">
+					          <b><p class="list-inline-item pr-2">District:</p></b>
+					        </div>
+					        <div class="col-4 col-sm-6 text-left">
+					          <?php echo $project->district_name; ?>
+					        </div>
+			      		</div>
+			      		<div class="row">
+					        <div class="col-8 col-sm-6 text-right">
+					          <b><p class="list-inline-item pr-2">Country:</p></b>
+					        </div>
+					        <div class="col-4 col-sm-6 text-left">
+					          <?php echo $project->country_name; ?>
+					        </div>
+			      		</div>
+			      		<div class="row">
+					        <div class="col-8 col-sm-6 text-right">
+					          <b><p class="list-inline-item pr-2">Province/Region City:</p></b>
+					        </div>
+					        <div class="col-4 col-sm-6 text-left">
+					          <?php echo $project->City; ?>
+					        </div>
+			      		</div>
+			        </div>
+			        <div class="col-8 col-sm-6">
+			          	<div class="row">
+					        <div class="col-8 col-sm-6 text-right">
+					          <b><p class="list-inline-item pr-2">Arrival City:</p></b>
+					        </div>
+					        <div class="col-4 col-sm-6 text-left">
+					          <?php echo $project->ArrivalCity; ?>
+					        </div>
+			      		</div>
+			      		<div class="row">
+					        <div class="col-8 col-sm-6 text-right">
+					          <b><p class="list-inline-item pr-2">Estimated Cost:</p></b>
+					        </div>
+					        <div class="col-4 col-sm-6 text-left">
+					          <?php echo "$".$project->EstimatedCost; ?>
+					        </div>
+			      		</div>
+			      		<div class="row">
+					        <div class="col-8 col-sm-6 text-right">
+					          <b><p class="list-inline-item pr-2">Requested Project Funds:</p></b>
+					        </div>
+					        <div class="col-4 col-sm-6 text-left">
+					          <?php echo "$".$project->RequestedProjectFunds; ?>
+					        </div>
+			      		</div>
+			      		<div class="row">
+					        <div class="col-8 col-sm-6 text-right">
+					          <b><p class="list-inline-item pr-2">Individual Cost Per Day:</p></b>
+					        </div>
+					        <div class="col-4 col-sm-6 text-left">
+					          <?php echo "$".$project->IndividualCostPerDay; ?>
+					        </div>
+			      		</div>
+			      		<div class="row">
+					        <div class="col-8 col-sm-6 text-right">
+					          <b><p class="list-inline-item pr-2">Site Coordinator:</p></b>
+					        </div>
+					        <div class="col-4 col-sm-6 text-left">
+					          <?php echo $project->SiteCoordinator; ?>
+					        </div>
+			      		</div>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		    <hr>
 
 		    <!--Accordion wrapper-->
 			<div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
@@ -209,12 +311,64 @@
 		    	echo anchor("Project/coordinator/{$project->ProjectID}","<i class='fas fa-user-cog'></i> Manage Coordinator",["class"=>"btn btn-primary btn-sm"]);
 		    }
 
-			if($this->session->userdata('CanApprove') and $project->Status != 4)
+		    if($this->session->userdata('Role') == 1)
+		    {
+		    	echo anchor("Project/coordinator/{$project->ProjectID}","<i class='fas fa-user-cog'></i> Manage Coordinator",["class"=>"btn btn-primary btn-sm"]);
+		    	echo anchor("Project/edit/{$project->ProjectID}","<i class='fas fa-pencil-alt'></i> Edit",["class"=>"btn btn-warning btn-sm"]);
+				echo anchor("Project/images/{$project->ProjectID}","<i class='fas fa-file-image'></i> Images",["class"=>"btn btn-unique btn-sm"]);
+				echo anchor("Project/delete/{$project->ProjectID}","<i class='fas fa-trash mr-1'></i>Delete",["class"=>"btn btn-danger btn-sm","onclick" => "return confirm('Are you sure you want delete?')"]);
+				echo anchor("Project/ChangeStatus/{$project->ProjectID}/0","<i class='fas fa-undo-alt'></i> Return to Draft",["class"=>"btn btn-default btn-sm","onclick" => "return confirm('This project is being reviewed, Do you wish to continue?')"]);
+		    }
+
+		    	if($project->Status == 1)
+		    	{
+		    		if($this->session->userdata('Role') == 3)
+		    		{
+			    		echo anchor(($project->FKSiteCoordinatorID != 0 ? "Project/ChangeStatus/{$project->ProjectID}/2": "Project/coordinator/{$project->ProjectID}"),"<i class='fas fa-thumbs-up'></i> Submit to Region",["class"=>"btn btn-success btn-sm","onclick" => ($project->FKSiteCoordinatorID != 0 ? "return confirm('This project will now proceed for Regional Approval, do you wish you to continue?')" : "return alert('Please assign a SITE COORDINATOR before proceeding to this action.')")]);
+						echo anchor("","<i class='fas fa-thumbs-down'></i> Disapprove",["data-toggle" => "modal","data-target" => "#mdlDisapprove","class"=>"btn btn-danger btn-sm"]);
+						echo anchor("Project/ChangeStatus/{$project->ProjectID}/0","<i class='fas fa-undo-alt'></i> Return to Draft",["class"=>"btn btn-default btn-sm","onclick" => "return confirm('This project is being reviewed, Do you wish to continue?')"]);
+		    		}
+		    		elseif($this->session->userdata('Role') == 1)
+		    		{
+						echo anchor(($project->FKSiteCoordinatorID != 0 ? "Project/ChangeStatus/{$project->ProjectID}/2": "Project/coordinator/{$project->ProjectID}"),"<i class='fas fa-thumbs-up'></i> Submit to Region",["class"=>"btn btn-success btn-sm","onclick" => ($project->FKSiteCoordinatorID != 0 ? "return confirm('This project will now proceed for Regional Approval, do you wish you to continue?')" : "return alert('Please assign a SITE COORDINATOR before proceeding to this action.')")]);
+						echo anchor("","<i class='fas fa-thumbs-down'></i> Disapprove",["data-toggle" => "modal","data-target" => "#mdlDisapprove","class"=>"btn btn-danger btn-sm"]);
+		    		}
+
+		    	}
+		    	elseif(($this->session->userdata('Role') == 4 or $this->session->userdata('Role') == 1 ) and $project->Status == 2)
+		    	{
+		    		echo anchor("Project/ChangeStatus/{$project->ProjectID}/3","<i class='fas fa-thumbs-up'></i> Approve",["class"=>"btn btn-success btn-sm","onclick" => "return confirm('Are you sure you want to Approve this project?')"]);
+		    		echo anchor("","<i class='fas fa-thumbs-down'></i> Disapprove",["data-toggle" => "modal","data-target" => "#mdlDisapprove","class"=>"btn btn-danger btn-sm"]);
+		    	}
+		    	elseif($project->Status == 0)
+		    	{
+				    if($this->session->userdata('PersonID') == $project->FKCreatedByID)
+				    {
+					    echo anchor("Project/ChangeStatus/{$project->ProjectID}/1","<i class='fas fa-check'></i> Submit",["class"=>"btn btn-info btn-sm","onclick" => "return confirm('Are you sure you want to submit this project? Project cannot be editted once submitted.')"]);
+			    		echo anchor("Project/edit/{$project->ProjectID}","<i class='fas fa-pencil-alt'></i> Edit",["class"=>"btn btn-warning btn-sm"]);
+						echo anchor("Project/images/{$project->ProjectID}","<i class='fas fa-file-image'></i> Images",["class"=>"btn btn-unique btn-sm"]);
+						echo anchor("Project/delete/{$project->ProjectID}","<i class='fas fa-trash mr-1'></i>Delete",["class"=>"btn btn-danger btn-sm","onclick" => "return confirm('Are you sure you want delete?')"]);
+				    }
+				    elseif($this->session->userdata('Role') == 1)
+				    {
+				    	echo anchor("Project/ChangeStatus/{$project->ProjectID}/1","<i class='fas fa-check'></i> Submit",["class"=>"btn btn-info btn-sm","onclick" => "return confirm('Are you sure you want to submit this project? Project cannot be editted once submitted.')"]);
+				    }
+		    	}
+		    	elseif(($this->session->userdata('PersonID') == $project->FKCreatedByID or $this->session->userdata('Role') == 1) and $project->Status == 4)
+		    	{
+					echo anchor("Project/ChangeStatus/{$project->ProjectID}/0","<i class='fas fa-undo-alt'></i> Return to Draft",["class"=>"btn btn-default btn-sm","onclick" => "return confirm('This project is being reviewed, Do you wish to continue?')"]);
+		    	}
+
+			/*if($this->session->userdata('CanApprove') and $project->Status != 4)
 		    	{
 		    		if($this->session->userdata('Role') == 3 and $project->Status == 1)
 		    		{
 						echo anchor(($project->FKSiteCoordinatorID != 0 ? "Project/ChangeStatus/{$project->ProjectID}/2": "Project/coordinator/{$project->ProjectID}"),"<i class='fas fa-thumbs-up'></i> Submit to Region",["class"=>"btn btn-success btn-sm","onclick" => ($project->FKSiteCoordinatorID != 0 ? "return confirm('This project will now proceed for Regional Approval, do you wish you to continue?')" : "return alert('Please assign a SITE COORDINATOR before proceeding to this action.')")]);
 						echo anchor("","<i class='fas fa-thumbs-down'></i> Disapprove",["data-toggle" => "modal","data-target" => "#mdlDisapprove","class"=>"btn btn-danger btn-sm"]);
+		    		}
+		    		elseif($this->session->userdata('Role') == 1 and $project->Status == 0)
+		    		{
+						echo anchor("Project/ChangeStatus/{$project->ProjectID}/1","<i class='fas fa-check'></i> Submit",["class"=>"btn btn-info btn-sm","onclick" => "return confirm('Are you sure you want to submit this project? Project cannot be editted once submitted.')"]);
 		    		}
 		    		elseif($this->session->userdata('Role') == 4 and $project->Status == 2)
 		    		{
@@ -228,14 +382,14 @@
 		    }
 		    else
 		    {
-		    	if(($this->session->userdata('PersonID') == $project->FKCreatedByID or $this->session->userdata('Role') == 1) and $project->Status == 0)
+		    	if(($this->session->userdata('PersonID') == $project->FKCreatedByID and $project->Status == 0)  or ($this->session->userdata('Role') == 1))
 		    	{
-					echo anchor("Project/ChangeStatus/{$project->ProjectID}/1","<i class='fas fa-check'></i> Submit",["class"=>"btn btn-info btn-sm","onclick" => "return confirm('Are you sure you want to submit this project? Project cannot be editted once submitted.')"]);
+		    		echo anchor("Project/ChangeStatus/{$project->ProjectID}/1","<i class='fas fa-check'></i> Submit",["class"=>"btn btn-info btn-sm","onclick" => "return confirm('Are you sure you want to submit this project? Project cannot be editted once submitted.')"]);
 					echo anchor("Project/edit/{$project->ProjectID}","<i class='fas fa-pencil-alt'></i> Edit",["class"=>"btn btn-warning btn-sm"]);
 					echo anchor("Project/images/{$project->ProjectID}","<i class='fas fa-file-image'></i> Images",["class"=>"btn btn-unique btn-sm"]);
 					echo anchor("Project/delete/{$project->ProjectID}","<i class='fas fa-trash mr-1'></i>Delete",["class"=>"btn btn-danger btn-sm","onclick" => "return confirm('Are you sure you want delete?')"]);
 				}
-		    } ?>
+		    }*/ ?>
 		  </div>
 
 			<!--Modal: Login with Avatar Form-->

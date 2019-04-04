@@ -51,28 +51,42 @@ class Users extends CI_Controller {
         
         public function View($PersonID)
         {
-                $this->load->model('UserModel');
-                $data['User'] = $this->UserModel->viewUser($PersonID);
-                $data['Roles'] = $this->UserModel->getRoles();
+                if($this->session->userdata('Role') == 1)
+                {
+                        $this->load->model('UserModel');
+                        $data['User'] = $this->UserModel->viewUser($PersonID);
+                        $data['Roles'] = $this->UserModel->getRoles();
 
-                $this->load->model('PagesModel');
-                $data['Regions'] = $this->PagesModel->getRegions();
-                $data['Fields'] = $this->PagesModel->getFields();
-                $data['Districts'] = $this->PagesModel->getRecords('districts');
-                $data['Countries'] = $this->PagesModel->getRecords('countries');
-                $this->load->view('user_view',$data);
+                        $this->load->model('PagesModel');
+                        $data['Regions'] = $this->PagesModel->getRegions();
+                        $data['Fields'] = $this->PagesModel->getFields();
+                        $data['Districts'] = $this->PagesModel->getRecords('districts');
+                        $data['Countries'] = $this->PagesModel->getRecords('countries');
+                        $this->load->view('user_view',$data);
+                }
+                else
+                {
+                        $this->load->view('forbidden');
+                }
         }
 
         public function New()
         {
-                $this->load->model('UserModel');
-                $data['Roles'] = $this->UserModel->getRoles();
-                $this->load->model('PagesModel');
-                $data['Regions'] = $this->PagesModel->getRegions();
-                $data['Fields'] = $this->PagesModel->getFields();
-                $data['Districts'] = $this->PagesModel->getRecords('districts');
-                $data['Countries'] = $this->PagesModel->getRecords('countries');
-                $this->load->view('user_new',$data);
+                if($this->session->userdata('Role') == 1)
+                {
+                        $this->load->model('UserModel');
+                        $data['Roles'] = $this->UserModel->getRoles();
+                        $this->load->model('PagesModel');
+                        $data['Regions'] = $this->PagesModel->getRegions();
+                        $data['Fields'] = $this->PagesModel->getFields();
+                        $data['Districts'] = $this->PagesModel->getRecords('districts');
+                        $data['Countries'] = $this->PagesModel->getRecords('countries');
+                        $this->load->view('user_new',$data);
+                }
+                else
+                {
+                        $this->load->view('forbidden');
+                }
         }
 
         public function List()
@@ -84,27 +98,34 @@ class Users extends CI_Controller {
 
         public function save()
         {
-                $this->form_validation->set_rules('GivenName','Given Name','required');
-                $this->form_validation->set_rules('Username','Description','required');
-                $this->form_validation->set_rules('Password','Category','required');
-                $this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
-                $this->load->model('PagesModel');
-
-                if ($this->form_validation->run())
+                if($this->session->userdata('Role') == 1)
                 {
-                $data = $this->input->post();
+                        $this->form_validation->set_rules('GivenName','Given Name','required');
+                        $this->form_validation->set_rules('Username','Description','required');
+                        $this->form_validation->set_rules('Password','Category','required');
+                        $this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
+                        $this->load->model('PagesModel');
 
-                        if($this->PagesModel->saveRecord($data,'Person'))
+                        if ($this->form_validation->run())
                         {
-                        $this->session->set_flashdata('response','User successfully saved.');
+                        $data = $this->input->post();
+
+                                if($this->PagesModel->saveRecord($data,'Person'))
+                                {
+                                $this->session->set_flashdata('response','User successfully saved.');
+                                }
+                                else
+                                {
+                                        $this->session->set_flashdata('response','User was not saved.');
+                                }
                         }
-                        else
-                        {
-                                $this->session->set_flashdata('response','User was not saved.');
-                        }
+
+                        return redirect("Users/New");
                 }
-
-                return redirect("Users/New");
+                else
+                {
+                        $this->load->view('forbidden');
+                }
         }
 
         public function update($id)

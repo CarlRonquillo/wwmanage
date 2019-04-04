@@ -19,6 +19,13 @@
 			return $this->db->update('projects', $data);
 		}
 
+		public function seen($logID)
+		{
+			$data = array('Seen' => 1);
+			$this->db->where('LogsID', $logID);
+			return $this->db->update('projectlogs', $data);
+		}
+
 		public function ChangeThumbnail($mediaID,$ProjectID)
 		{
 			$data = array('is_thumbnail' => 0);
@@ -80,6 +87,23 @@
 			}
 		}
 
+		public function getProjectLogsByUser($arrayLogs)
+		{
+			$this->db->select("projectlogs.*,projects.ProjectName,project_status.Title,CONCAT(Person.GivenName,' ',Person.FamilyName) as CreatedBy,UNIX_TIMESTAMP(projectlogs.DateCreated) as elapsedTime");
+			$this->db->from('projectlogs');
+			$this->db->join('projects', 'projects.ProjectID = projectlogs.FKProjectID','left');
+			$this->db->join('Person', 'Person.PersonID = projectlogs.FKCreatedBy','left');
+			$this->db->join('project_status', 'project_status.Code = projectlogs.FKStatusID','left');
+			$this->db->where_in("projectlogs.FKProjectID",$arrayLogs);
+			$this->db->order_by('projectlogs.DateCreated', 'DESC');
+			$this->db->limit(10);
+			$query = $this->db->get();
+			if($query->num_rows() > 0)
+			{
+				return $query->result_array();
+			}
+		}
+
 		public function viewProject($ProjectID)
 		{
 			$this->db->select("CONCAT(Person.GivenName,' ',Person.FamilyName)");
@@ -90,10 +114,14 @@
 			$subQuery  =  $this->db->get_compiled_select();
 
 
-			$this->db->select('projects.*,Person.PersonID,Person.GivenName,Person.FamilyName,project_status.Title,('. $subQuery .') as SiteCoordinator');
+			$this->db->select('projects.*,Person.PersonID,Person.GivenName,Person.FamilyName,project_status.Title,('. $subQuery .') as SiteCoordinator,opal_region.RegionName,fields.name as FieldName,districts.district_name,countries.country_name');
 			$this->db->from('projects');
 			$this->db->join('Person', 'Person.PersonID = projects.FKCreatedByID','left');
 			$this->db->join('project_status', 'project_status.Code = projects.Status','left');
+			$this->db->join('opal_region', 'opal_region.RegionID = projects.FKRegionID','left');
+			$this->db->join('fields', 'fields.id = projects.FKFieldID','left');
+			$this->db->join('districts', 'districts.id = projects.FKDistrictID','left');
+			$this->db->join('countries', 'countries.id = projects.FKCountryID','left');
 			$this->db->where("projects.Deleted",0);
 			$this->db->where("projects.ProjectID",$ProjectID);
 			$query = $this->db->get();
