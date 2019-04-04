@@ -114,11 +114,11 @@
 			$subQuery  =  $this->db->get_compiled_select();
 
 
-			$this->db->select('projects.*,Person.PersonID,Person.GivenName,Person.FamilyName,project_status.Title,('. $subQuery .') as SiteCoordinator,opal_region.RegionName,fields.name as FieldName,districts.district_name,countries.country_name');
+			$this->db->select('projects.*,Person.PersonID,Person.GivenName,Person.FamilyName,project_status.Title,('. $subQuery .') as SiteCoordinator,OPAL_Region.RegionName,fields.name as FieldName,districts.district_name,countries.country_name');
 			$this->db->from('projects');
 			$this->db->join('Person', 'Person.PersonID = projects.FKCreatedByID','left');
 			$this->db->join('project_status', 'project_status.Code = projects.Status','left');
-			$this->db->join('opal_region', 'opal_region.RegionID = projects.FKRegionID','left');
+			$this->db->join('OPAL_Region', 'OPAL_Region.RegionID = projects.FKRegionID','left');
 			$this->db->join('fields', 'fields.id = projects.FKFieldID','left');
 			$this->db->join('districts', 'districts.id = projects.FKDistrictID','left');
 			$this->db->join('countries', 'countries.id = projects.FKCountryID','left');
