@@ -91,7 +91,7 @@ class Project extends CI_Controller {
 
 	public function new()
 	{
-		if($this->session->userdata('Role') == 1 or $this->session->userdata('Role') == 2)
+		if($this->session->userdata('Role') != 6)
 		{
 			$this->load->model('PagesModel');
 			$data['Regions'] = $this->PagesModel->getRegions();

@@ -41,7 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-legal" aria-hidden="true"></i> Projects<i class="fa fa-angle-down rotate-icon"></i></a>
                         <div class="collapsible-body">
                             <ul>
-                                <?php if($this->session->userdata('Role') == 2 or $this->session->userdata('Role') == 1)
+                                <?php if($this->session->userdata('Role') != 6)
                                 { ?>
                                     <li> <?php echo anchor("Project/new","Add Project",["class" => "waves-effect"]); ?> </li>
                                 <?php } ?>

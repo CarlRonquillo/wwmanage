@@ -54,12 +54,14 @@
 							project_status.Title,
 							Media.FileName,
 							countries.country_name,
-							fields.name as FieldName');
+							fields.name as FieldName,
+							OPAL_Region.RegionName');
 			$this->db->from('projects');
 			$this->db->join('Media', 'Media.FKProjectID = projects.ProjectID AND Media.is_thumbnail = 1','left');
 			$this->db->join('Person', 'Person.PersonID = projects.FKSiteCoordinatorID','left');
 			$this->db->join('countries', 'countries.id = projects.FKCountryID','left');
 			$this->db->join('fields', 'fields.id = projects.FKFieldID','left');
+			$this->db->join('OPAL_Region', 'OPAL_Region.RegionID = projects.FKRegionID','left');
 			$this->db->join('project_status', 'project_status.Code = projects.Status','left');
 			$this->db->order_by('projects.ProjectName', 'ASC');
 			if($this->session->userdata('Role') == 2)

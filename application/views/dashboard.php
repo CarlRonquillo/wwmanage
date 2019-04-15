@@ -6,16 +6,16 @@
             <!-- First row -->
             <div class="row mt-lg-5">
                 <!-- First column -->
-                <div class="col-xl-3 col-md-6 mb-4">
+                <div class="col-xl-2 col-md-6 mb-4">
                     <!--Card-->
                     <div class="card card-cascade cascading-admin-card">
 
                         <!--Card Data-->
                         <div class="admin-up">
-                            <i class="fa fa-money primary-color"></i>
+                            <i class="fa fas fa-thumbs-up green lighten-2"></i>
                             <div class="data">
-                                <p>SALES</p>
-                                <h3 class="font-weight-bold dark-grey-text">4 571 $</h3>
+                                <p class="dark-grey-text">APPROVED</p>
+                                <h5 class="font-weight-bold dark-grey-text">4 571 $</h5>
                             </div>
                         </div>
                         <!--/.Card Data-->
@@ -26,7 +26,7 @@
                                 <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                             <!--Text-->
-                            <p class="card-text">Better than last week (25%)</p>
+                            <p class="card-text">25%</p>
                         </div>
                         <!--/.Card content-->
 
@@ -35,16 +35,16 @@
                 </div>
 
                 <!-- Second column -->
-                <div class="col-xl-3 col-md-6 mb-4">
+                <div class="col-xl-2 col-md-6 mb-4">
                     <!--Card-->
                     <div class="card card-cascade cascading-admin-card">
 
                         <!--Card Data-->
                         <div class="admin-up">
-                            <i class="fa fa-line-chart warning-color"></i>
+                            <i class="fa fas fa-check default-color"></i>
                             <div class="data">
-                                <p>SUBSCRIPTIONS</p>
-                                <h3 class="font-weight-bold dark-grey-text">375</h3>
+                                <p class="dark-grey-text">COMPLETED</p>
+                                <h5 class="font-weight-bold dark-grey-text">4 571 $</h5>
                             </div>
                         </div>
                         <!--/.Card Data-->
@@ -55,7 +55,7 @@
                                 <div class="progress-bar red accent-2" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                             <!--Text-->
-                            <p class="card-text">Worse than last week (25%)</p>
+                            <p class="card-text">25%</p>
                         </div>
                         <!--/.Card content-->
 
@@ -64,16 +64,16 @@
                 </div>
 
                 <!-- Third column -->
-                <div class="col-xl-3 col-md-6 mb-4">
+                <div class="col-xl-2 col-md-6 mb-4">
                     <!--Card-->
                     <div class="card card-cascade cascading-admin-card">
 
                         <!--Card Data-->
                         <div class="admin-up">
-                            <i class="fa fa-pie-chart light-blue lighten-1"></i>
+                            <i class="fa far fa-file-alt secondary-color"></i>
                             <div class="data">
-                                <p>TRAFFIC</p>
-                                <h3 class="font-weight-bold dark-grey-text">21 479</h3>
+                                <p class="dark-grey-text">SUBMITTED</p>
+                                <h5 class="font-weight-bold dark-grey-text">4 571 $</h5>
                             </div>
                         </div>
                         <!--/.Card Data-->
@@ -84,7 +84,7 @@
                                 <div class="progress-bar red accent-2" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                             <!--Text-->
-                            <p class="card-text">Worse than last week (75%)</p>
+                            <p class="card-text">75%</p>
                         </div>
                         <!--/.Card content-->
 
@@ -93,16 +93,16 @@
                 </div>
 
                 <!-- Fourth column -->
-                <div class="col-xl-3 col-md-6 mb-4">
+                <div class="col-xl-2 col-md-6 mb-4">
                     <!--Card-->
                     <div class="card card-cascade cascading-admin-card">
 
                         <!--Card Data-->
                         <div class="admin-up">
-                            <i class="fa fa-bar-chart red accent-2"></i>
+                            <i class="fa fas fa-file-signature info-color"></i>
                             <div class="data">
-                                <p>ORGANIC TRAFFIC</p>
-                                <h3 class="font-weight-bold dark-grey-text">4 567</h3>
+                                <p class="dark-grey-text">DRAFT</p>
+                                <h5 class="font-weight-bold dark-grey-text">4 571 $</h5>
                             </div>
                         </div>
                         <!--/.Card Data-->
@@ -113,7 +113,63 @@
                                 <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                             <!--Text-->
-                            <p class="card-text">Better than last week (25%)</p>
+                            <p class="card-text">25%</p>
+                        </div>
+                        <!--/.Card content-->
+
+                    </div>
+                    <!--/.Card-->
+                </div>
+                                <!-- Fourth column -->
+                <div class="col-xl-2 col-md-6 mb-4">
+                    <!--Card-->
+                    <div class="card card-cascade cascading-admin-card">
+
+                        <!--Card Data-->
+                        <div class="admin-up">
+                            <i class="fa fas fa-thumbs-down danger-color"></i>
+                            <div class="data">
+                                <p class="dark-grey-text">DISAPPROVED</p>
+                                <h5 class="font-weight-bold dark-grey-text">4 571 $</h5>
+                            </div>
+                        </div>
+                        <!--/.Card Data-->
+
+                        <!--Card content-->
+                        <div class="card-body card-body-cascade">
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <!--Text-->
+                            <p class="card-text">25%</p>
+                        </div>
+                        <!--/.Card content-->
+
+                    </div>
+                    <!--/.Card-->
+                </div>
+                                <!-- Fourth column -->
+                <div class="col-xl-2 col-md-6 mb-4">
+                    <!--Card-->
+                    <div class="card card-cascade cascading-admin-card">
+
+                        <!--Card Data-->
+                        <div class="admin-up">
+                            <i class="fa fas fa-times stylish-color"></i>
+                            <div class="data">
+                                <p class="dark-grey-text">DEACTIVATED</p>
+                                <h5 class="font-weight-bold dark-grey-text">4 571 $</h5>
+                            </div>
+                        </div>
+                        <!--/.Card Data-->
+
+                        <!--Card content-->
+                        <div class="card-body card-body-cascade">
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <!--Text-->
+                            <p class="card-text">25%</p>
                         </div>
                         <!--/.Card content-->
 

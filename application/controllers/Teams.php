@@ -17,7 +17,7 @@ class Teams extends CI_Controller {
 
     public function new()
     {
-            $this->load->view('team_new');
+        $this->load->view('team_new');
     }
 
         public function save()
@@ -41,7 +41,7 @@ class Teams extends CI_Controller {
                     }
                 }
 
-                return redirect("Teams/new");
+                return redirect("Teams/list");
         }
 
         public function list()

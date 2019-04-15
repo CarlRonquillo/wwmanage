@@ -27,6 +27,7 @@
 				        <th scope="col" class="font-weight-bold dark-grey-text">Project Name</th>
 				        <th scope="col" class="font-weight-bold dark-grey-text">Short Description</th>
 				        <th scope="col" class="font-weight-bold dark-grey-text">Country</th>
+				        <th scope="col" class="font-weight-bold dark-grey-text">Region</th>
 				        <th scope="col" class="font-weight-bold dark-grey-text">Field</th>
 				        <th scope="col" class="font-weight-bold dark-grey-text">Site-Coordinator</th>
 				        <th scope="col" class="font-weight-bold dark-grey-text">Status</th>
@@ -64,6 +65,7 @@
 					        </td>
 					        <td class="text-justify" style="max-width: 30%;" ><?php echo substr($project->Description,0,120).((strlen($project->Description) < 120) ? '' : '...') ?></td>
 					        <td><?php echo $project->country_name ?></td>
+					        <td><?php echo $project->RegionName ?></td>
 					        <td><?php echo $project->FieldName ?></td>
 					        <td><?php echo $project->GivenName.' '.$project->FamilyName ?></td>
 					        <td><i class="<?php echo ($project->Active ? $StatusColor : 'badge badge-danger'); ?>"><?php echo  ($project->Active ? $project->Title : 'Inactive') ?></i></td>
